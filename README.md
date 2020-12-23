@@ -60,3 +60,6 @@ School Hospital Outpatient Management Information System project for Spring Boot
 - 登录
 - 密码修改
 
+## 项目趋势
+
+[![Stargazers over time](https://starchart.cc/Mars-Sea/School-Hospital-Outpatient-Management-Information-System.svg)](https://starchart.cc/Mars-Sea/School-Hospital-Outpatient-Management-Information-System)

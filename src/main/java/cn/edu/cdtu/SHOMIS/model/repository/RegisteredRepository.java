@@ -1,6 +1,6 @@
-package cn.edu.cdtu.SHOMIS.controller;
+package cn.edu.cdtu.SHOMIS.model.repository;
 
-import cn.edu.cdtu.SHOMIS.model.RegisteredDO;
+import cn.edu.cdtu.SHOMIS.model.entity.RegisteredDO;
 import org.springframework.data.repository.CrudRepository;
 
 /**

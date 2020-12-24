@@ -1,4 +1,4 @@
-package cn.edu.cdtu.SHOMIS.model;
+package cn.edu.cdtu.SHOMIS.model.entity;
 
 import javax.persistence.*;
 

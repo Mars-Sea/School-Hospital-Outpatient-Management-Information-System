@@ -3,12 +3,14 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/shomis?&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/shomis?&useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: sea
-    password: 1195751600
+    username: root
+    password: root
   jpa:
     show-sql: true # 是否显示sql语句
     generate-ddl: false # Whether to initialize the schema on startup.
     hibernate:
       ddl-auto: create
+  thymeleaf:
+    cache: false

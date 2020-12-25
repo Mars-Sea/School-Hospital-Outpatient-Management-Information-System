@@ -24,6 +24,7 @@ public class RegisteredDO {
 	@ManyToOne
 	private DoctorDO doctor;
 
+	@Temporal(TemporalType.DATE)
 	private Date appTime;
 
 	@Column(length = 100)

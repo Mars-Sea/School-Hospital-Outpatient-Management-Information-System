@@ -32,7 +32,9 @@ public class RegisteredDO {
 	/**
 	 * 处方
 	 */
+	@Column(length = 200)
 	private String visits;
+
 	private Float price;
 
 	public RegisteredDO(Integer id, StudentDO student, DoctorDO doctor, Date appTime, String symptom, String visits, Float price) {

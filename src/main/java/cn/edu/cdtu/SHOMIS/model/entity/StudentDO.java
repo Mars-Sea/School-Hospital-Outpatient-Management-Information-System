@@ -13,7 +13,7 @@ public class StudentDO {
 	@Id
 	private Integer sno;
 
-	@Column(length = 20)
+	@Column(length = 20, nullable = true)
 	private String sname;
 
 	@Column
@@ -22,7 +22,7 @@ public class StudentDO {
 	@Column(length = 5)
 	private String ssex;
 
-	@Column(length = 20)
+	@Column(length = 20, nullable = true)
 	private String spwd;
 
 	public StudentDO() {

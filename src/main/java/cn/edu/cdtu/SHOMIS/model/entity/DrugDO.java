@@ -1,7 +1,7 @@
 package cn.edu.cdtu.SHOMIS.model.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author mars_sea

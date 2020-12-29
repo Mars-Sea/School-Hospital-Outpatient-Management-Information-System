@@ -35,10 +35,13 @@ public class RegisteredDO {
 	 */
 	@Column(length = 200)
 	private String visits;
+//顺序
+	@Column
+	private Integer order;
 
 	private Float price;
 
-	public RegisteredDO(Integer id, StudentDO student, DoctorDO doctor, Date appTime, String symptom, String visits, Float price) {
+	public RegisteredDO(Integer id, StudentDO student, DoctorDO doctor, Date appTime, String symptom, String visits, Float price,Integer order) {
 		this.id = id;
 		this.student = student;
 		this.doctor = doctor;
@@ -46,6 +49,7 @@ public class RegisteredDO {
 		this.symptom = symptom;
 		this.visits = visits;
 		this.price = price;
+		this.order = order;
 	}
 
 	public RegisteredDO() {
@@ -108,6 +112,14 @@ public class RegisteredDO {
 		this.price = price;
 	}
 
+	public Integer getOrder() {
+		return order;
+	}
+
+	public void setOrder(Integer order) {
+		this.order = order;
+	}
+
 	@Override
 	public String toString() {
 		return "RegisteredDO{" +
@@ -117,6 +129,7 @@ public class RegisteredDO {
 				", appTime=" + appTime +
 				", symptom='" + symptom + '\'' +
 				", visits='" + visits + '\'' +
+				", order=" + order +
 				", price=" + price +
 				'}';
 	}

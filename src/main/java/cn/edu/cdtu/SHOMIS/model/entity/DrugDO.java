@@ -1,9 +1,7 @@
 package cn.edu.cdtu.SHOMIS.model.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.sql.Date;
 
 /**
  * @author mars_sea
@@ -21,17 +19,49 @@ public class DrugDO {
 
 	@Column
 	private Integer inventory;
-
+	//批发价
 	@Column
-	private Float dprice;
+	private Float pDprice;
+	//零售价
+	@Column
+	private Float lDprice;
+	//生产厂家
+	@Column
+	private String SCCJ;
+	//进货日期
+	@Column
+	@Temporal(TemporalType.DATE)
+	private Date JHRQ;
+	//生产日期
+	@Column
+	@Temporal(TemporalType.DATE)
+	private Date SCRQ;
 
-	public DrugDO() {
-	}
-	public DrugDO(String dno, String dname, Integer inventory, Float dprice) {
+	//失效日期
+	@Column
+	@Temporal(TemporalType.DATE)
+	private Date SXRQ;
+
+	//备注
+	@Column
+	private String memo;
+
+
+	public DrugDO(String dno, String dname, Integer inventory, Float pDprice, Float lDprice, String SCCJ, Date JHRQ, Date SCRQ, Date SXRQ, String memo) {
 		this.dno = dno;
 		this.dname = dname;
 		this.inventory = inventory;
-		this.dprice = dprice;
+		this.pDprice = pDprice;
+		this.lDprice = lDprice;
+		this.SCCJ = SCCJ;
+		this.JHRQ = JHRQ;
+		this.SCRQ = SCRQ;
+		this.SXRQ = SXRQ;
+		this.memo = memo;
+	}
+
+	public DrugDO() {
+
 	}
 
 	public String getDno() {
@@ -58,12 +88,60 @@ public class DrugDO {
 		this.inventory = inventory;
 	}
 
-	public Float getDprice() {
-		return dprice;
+	public Float getpDprice() {
+		return pDprice;
 	}
 
-	public void setDprice(Float dprice) {
-		this.dprice = dprice;
+	public void setpDprice(Float pDprice) {
+		this.pDprice = pDprice;
+	}
+
+	public Float getlDprice() {
+		return lDprice;
+	}
+
+	public void setlDprice(Float lDprice) {
+		this.lDprice = lDprice;
+	}
+
+	public String getSCCJ() {
+		return SCCJ;
+	}
+
+	public void setSCCJ(String SCCJ) {
+		this.SCCJ = SCCJ;
+	}
+
+	public Date getJHRQ() {
+		return JHRQ;
+	}
+
+	public void setJHRQ(Date JHRQ) {
+		this.JHRQ = JHRQ;
+	}
+
+	public Date getSCRQ() {
+		return SCRQ;
+	}
+
+	public void setSCRQ(Date SCRQ) {
+		this.SCRQ = SCRQ;
+	}
+
+	public Date getSXRQ() {
+		return SXRQ;
+	}
+
+	public void setSXRQ(Date SXRQ) {
+		this.SXRQ = SXRQ;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 
 	@Override
@@ -72,7 +150,13 @@ public class DrugDO {
 				"dno='" + dno + '\'' +
 				", dname='" + dname + '\'' +
 				", inventory=" + inventory +
-				", dprice=" + dprice +
+				", pDprice=" + pDprice +
+				", lDprice=" + lDprice +
+				", SCCJ='" + SCCJ + '\'' +
+				", JHRQ=" + JHRQ +
+				", SCRQ=" + SCRQ +
+				", SXRQ=" + SXRQ +
+				", memo='" + memo + '\'' +
 				'}';
 	}
 }

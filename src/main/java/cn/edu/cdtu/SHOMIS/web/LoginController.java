@@ -1,14 +1,9 @@
 package cn.edu.cdtu.SHOMIS.web;
 
-import cn.edu.cdtu.SHOMIS.service.AdminService;
+import cn.edu.cdtu.SHOMIS.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.annotation.security.PermitAll;
 
 /**
  * @author mars_sea
@@ -17,16 +12,31 @@ import javax.annotation.security.PermitAll;
 public class LoginController {
 
 	@Autowired
-	private AdminService adminService;
+	private LoginService loginService;
 
-	@PermitAll
+
 	@GetMapping("/login")
 	public ModelAndView openLogin(){
 		return new ModelAndView("/login");
 	}
 
-	@PostMapping("/login")
-	public ModelAndView login(){
-		return new ModelAndView("/login");
+	@PostMapping("/loginPost")
+	public @ResponseBody ModelAndView login(Integer number, String password){
+		System.out.println(number+"!!!!"+password);
+		String message = loginService.loginByNumberAndPassword(number,password);
+		switch (message){
+			case "学生":
+				return new ModelAndView("/student");
+			case "医生":
+				return new ModelAndView("/doctor");
+			case "管理员":
+				return new ModelAndView("/admin");
+			default:
+				ModelAndView modelAndView = new ModelAndView("/login");
+				modelAndView.addObject("message",message);
+				return modelAndView;
+		}
+
+
 	}
 }

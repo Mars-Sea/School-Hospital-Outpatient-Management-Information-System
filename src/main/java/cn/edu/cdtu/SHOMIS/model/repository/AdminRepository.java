@@ -16,6 +16,6 @@ public interface AdminRepository extends CrudRepository<AdminDO,Integer> {
 	 * @param apwd 管理员密码
 	 * @return 管理员实体类
 	 */
-	AdminDO findByAnoAndApwd(String ano, String apwd);
+	AdminDO findByAnoAndApwd(Integer ano, String apwd);
 
 }

@@ -15,5 +15,5 @@ public interface AdminService {
 	 * @param apwd 管理员密码
 	 * @return 返回管理员信息类
 	 */
-	 AdminDO adminLoginByAnoAndApwd(String ano, String apwd);
+	 AdminDO adminLoginByAnoAndApwd(Integer ano, String apwd);
 }

@@ -15,7 +15,7 @@ public class AdminDO {
 
 	@Id
 	@Column(length = 20)
-	private String ano;
+	private Integer ano;
 
 	@Column(length = 10)
 	private String apwd;
@@ -25,17 +25,18 @@ public class AdminDO {
 
 	public AdminDO() {
 	}
-	public AdminDO(String ano, String apwd, String name) {
+
+	public AdminDO(Integer ano, String apwd, String name) {
 		this.ano = ano;
 		this.apwd = apwd;
 		this.name = name;
 	}
 
-	public String getAno() {
+	public Integer getAno() {
 		return ano;
 	}
 
-	public void setAno(String ano) {
+	public void setAno(Integer ano) {
 		this.ano = ano;
 	}
 

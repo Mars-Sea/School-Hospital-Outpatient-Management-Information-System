@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>登录中心</title>
+
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{css/signin.css}" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<div class="alert alert-warning alert-dismissible" role="alert" th:if="${message} != null">
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<strong th:text="${message}"></strong>
+	</div>
+	<form class="form-signin" method="post" th:action="@{/loginPost}">
+		<h2 class="form-signin-heading">登录中心</h2>
+		<label for="inputEmail" class="sr-only">账号：</label>
+		<input name="number" type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+		<label for="inputPassword" class="sr-only">密码：</label>
+		<input name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+		<button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+	</form>
+</div>
+</body>
+</html>

@@ -16,7 +16,7 @@ public class AdminServiceImpl implements AdminService {
 	protected AdminRepository adminRepository;
 
 	@Override
-	public AdminDO adminLoginByAnoAndApwd(String ano, String apwd) {
+	public AdminDO adminLoginByAnoAndApwd(Integer ano, String apwd) {
 
 		return adminRepository.findByAnoAndApwd(ano, apwd);
 	}

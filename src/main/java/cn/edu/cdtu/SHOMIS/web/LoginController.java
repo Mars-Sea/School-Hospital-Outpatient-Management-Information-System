@@ -3,6 +3,7 @@ package cn.edu.cdtu.SHOMIS.web;
 import cn.edu.cdtu.SHOMIS.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,6 +21,11 @@ public class LoginController {
 
 	@PermitAll
 	@GetMapping("/login")
+	public ModelAndView openLogin(){
+		return new ModelAndView("/login");
+	}
+
+	@PostMapping("/login")
 	public ModelAndView login(){
 		return new ModelAndView("/login");
 	}

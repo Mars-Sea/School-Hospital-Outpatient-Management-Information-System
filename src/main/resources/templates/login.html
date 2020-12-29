@@ -10,47 +10,24 @@
 	<title>登录中心</title>
 
 	<!-- Bootstrap core CSS -->
-	<link th:href="@{/static/css/bootstrap.css}" rel="stylesheet">
+	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{css/signin.css}" rel="stylesheet">
 
-	<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-	<link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-	<!-- Custom styles for this template -->
-	<link href="signin.css" rel="stylesheet">
-
-	<!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-	<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-	<script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!--[if lt IE 9]>
-	<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-	<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-	<![endif]-->
 </head>
 
 <body>
 
 <div class="container">
 
-	<form class="form-signin">
-		<h2 class="form-signin-heading">Please sign in</h2>
-		<label for="inputEmail" class="sr-only">Email address</label>
-		<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-		<label for="inputPassword" class="sr-only">Password</label>
+	<form class="form-signin" method="post" action="/login">
+		<h2 class="form-signin-heading">登录中心</h2>
+		<label for="inputEmail" class="sr-only">账号：</label>
+		<input name="number" type="text" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+		<label for="inputPassword" class="sr-only">密码：</label>
 		<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-		<div class="checkbox">
-			<label>
-				<input type="checkbox" value="remember-me"> Remember me
-			</label>
-		</div>
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		<button name="password" class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
 	</form>
 
-</div> <!-- /container -->
-
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</div>
 </body>
 </html>

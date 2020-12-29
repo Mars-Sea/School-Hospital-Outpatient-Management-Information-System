@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// <X> 配置请求地址的权限
 				.authorizeRequests()
 				// 所有用户可访问
-				.antMatchers("/*").permitAll()
+				.antMatchers("*").permitAll()
 				// 需要 ADMIN 角色
 				.antMatchers("/admin/*").hasRole("ADMIN")
 				// 需要 student 角色。
@@ -45,12 +45,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				// 需要 doctor 角色。
 				.antMatchers("/doctor/*").hasRole("DOCTOR")
 				// 任何请求，访问的用户都需要经过认证
-				.anyRequest().authenticated()
+				//.anyRequest().authenticated()
 				.and()
 				// <Y> 设置 Form 表单登录
 				// 登录 URL 地址
 				.formLogin()
-                    .loginPage("/login.html")
+                    .loginPage("/login")
 				.permitAll() // 所有用户可访问
 				.and()
 				// 配置退出相关

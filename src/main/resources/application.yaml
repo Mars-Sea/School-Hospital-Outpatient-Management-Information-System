@@ -11,6 +11,6 @@ spring:
     show-sql: true # 是否显示sql语句
     generate-ddl: false # Whether to initialize the schema on startup.
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   thymeleaf:
     cache: false

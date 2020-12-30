@@ -2,14 +2,19 @@ package cn.edu.cdtu.SHOMIS.web;
 
 
 import cn.edu.cdtu.SHOMIS.model.entity.DoctorDO;
+import cn.edu.cdtu.SHOMIS.model.entity.StudentDO;
 import cn.edu.cdtu.SHOMIS.model.entity.Today;
 import cn.edu.cdtu.SHOMIS.model.entity.TopStudent;
 import cn.edu.cdtu.SHOMIS.model.repository.AdminRepository;
+import cn.edu.cdtu.SHOMIS.model.repository.StudentRepository;
 import cn.edu.cdtu.SHOMIS.service.AdminService;
 import cn.edu.cdtu.SHOMIS.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
@@ -29,6 +34,8 @@ public class AdminController {
 	private DoctorService doctorService;
 	@Autowired
 	private AdminRepository adminRepository;
+	@Autowired
+	private StudentRepository studentRepository;
 
 	@GetMapping("/admin")
 	public ModelAndView index() throws ParseException {
@@ -79,6 +86,31 @@ public class AdminController {
 		modelAndView.addObject("labelsd",labelsD);
 		modelAndView.addObject("topStudents",topStudents);
 		modelAndView.addObject("topDoctor",topDoctor);
+		return modelAndView;
+	}
+
+	@GetMapping("/student")
+	public ModelAndView sutdent() throws ParseException {
+		ArrayList<StudentDO> students = (ArrayList<StudentDO>) studentRepository.findAll();
+		ModelAndView modelAndView = new ModelAndView("/student");
+		modelAndView.addObject("students", students);
+		return modelAndView;
+	}
+
+	@PostMapping("/student")
+	public @ResponseBody ModelAndView searchSutdent(String search) throws ParseException {
+		ArrayList<StudentDO> students = studentRepository.findallBySearch("%"+search+"%","%"+search+"%");
+		ModelAndView modelAndView = new ModelAndView("/student");
+		modelAndView.addObject("students", students);
+		return modelAndView;
+	}
+
+	@PostMapping("/addstudent")
+	public @ResponseBody ModelAndView addStudent(String sno, String sname, String ssex, String sage){
+		System.out.println("666666");
+		StudentDO studentDO = new StudentDO(Integer.parseInt(sno),sname,Integer.parseInt(sage),ssex,"123456");
+		studentRepository.save(studentDO);
+		ModelAndView modelAndView = new ModelAndView("redirect:/student");
 		return modelAndView;
 	}
 

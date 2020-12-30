@@ -4,6 +4,8 @@ import cn.edu.cdtu.SHOMIS.model.entity.StudentDO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.ArrayList;
+
 /**
  * @author mars_sea
  */
@@ -18,4 +20,9 @@ public interface StudentRepository extends CrudRepository<StudentDO, Long> {
 	 * @return 医生实体类
 	 */
 	StudentDO findBySnoAndSpwd(Integer sno, String spwd);
+
+	ArrayList<StudentDO> findAllBySnameLikeOrSnoLike(String sname, Integer sno);
+
+	@Query(value = "SELECT * from students WHERE sno LIKE ?1 OR sname LIKE ?2", nativeQuery = true)
+	ArrayList<StudentDO> findallBySearch(String sname, String sno);
 }

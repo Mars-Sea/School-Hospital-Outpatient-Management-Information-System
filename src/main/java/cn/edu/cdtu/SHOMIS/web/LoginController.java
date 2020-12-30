@@ -24,12 +24,7 @@ public class LoginController {
 	}
 
 	@PostMapping("/loginPost")
-	@ResponseBody
-	public  ModelAndView login(Integer number, String password, HttpServletRequest request){
-		System.out.println(number+"!!!!"+password);
-
-
-
+	public @ResponseBody ModelAndView login(Integer number, String password, HttpServletRequest request){
 		String message = loginService.loginByNumberAndPassword(number,password);
 		ModelAndView modelAndView = new ModelAndView();
 		switch (message){

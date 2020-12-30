@@ -27,12 +27,12 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public ArrayList<Today> toDay(Date date) {
-		ArrayList<String> list = adminRepository.today();
+		ArrayList<String> list = adminRepository.today(date);
 		ArrayList<Today> todays = new ArrayList<>();
 
 		for (String s : list) {
 			String[] strings = s.split(",");
-			Today today = new Today(strings[3], strings[2], strings[1], strings[0]);
+			Today today = new Today(strings[3], strings[2], strings[1],strings[4], strings[0]);
 			todays.add(today);
 		}
 		return todays;

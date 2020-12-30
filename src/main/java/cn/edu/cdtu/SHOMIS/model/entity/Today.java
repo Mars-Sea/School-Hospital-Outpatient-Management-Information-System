@@ -6,14 +6,16 @@ public class Today {
 	private String sname;
 	private String dname;
 	private String time;
+	private String sno;
 	private String id;
 
 	public Today(){}
 
-	public Today(String sname, String dname, String time, String id) {
+	public Today(String sname, String dname, String time, String sno, String id) {
 		this.sname = sname;
 		this.dname = dname;
 		this.time = time;
+		this.sno = sno;
 		this.id = id;
 	}
 
@@ -39,6 +41,14 @@ public class Today {
 
 	public void setTime(String time) {
 		this.time = time;
+	}
+
+	public String getSno() {
+		return sno;
+	}
+
+	public void setSno(String sno) {
+		this.sno = sno;
 	}
 
 	public String getId() {

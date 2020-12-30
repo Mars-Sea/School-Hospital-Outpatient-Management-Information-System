@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>管理中心</title>
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{css/signin.css}" rel="stylesheet">
+	<link th:href="@{css/dashboard.css}" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">管理系统</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">用户名</a></li>
+				<li><a href="#">退出登录</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-3 col-md-2 sidebar">
+			<ul class="nav nav-sidebar">
+				<li><a th:href="@{/admin}">今日概况</a></li>
+				<li><a href="#">学生信息</a></li>
+				<li><a href="#">药品信息</a></li>
+				<li><a href="#">医生信息</a></li>
+				<li class="active"><a th:href="@{/statistics}">统计信息</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<div class="col-sm-6">
+				<h2 class="page-header">就诊趋势</h2>
+				<div class="placeholders">
+					<canvas id="myChart"></canvas>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<h2 class="page-header">医生看病统计</h2>
+				<div class="placeholders">
+					<canvas id="Chart"></canvas>
+				</div>
+			</div>
+
+		</div>
+		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+			<h2 class="page-header">看病学生次数统计</h2>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>学号</th>
+						<th>学生姓名</th>
+						<th>看病次数</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="top:${topStudents}">
+						<td th:text="${top.getSno()}"></td>
+						<td th:text="${top.getSname()}"></td>
+						<td th:text="${top.getSfrequency()}"></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 class="page-header">医生工作量统计</h2>
+			<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>医生号</th>
+						<th>医生姓名</th>
+						<th>看病次数</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr th:each="topDoctor:${topDoctor}">
+						<td th:text="${topDoctor.getSno()}"></td>
+						<td th:text="${topDoctor.getSname()}"></td>
+						<td th:text="${topDoctor.getSfrequency()}"></td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{js/jquery.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+<script th:inline="javascript">
+	var data = [[${data}]];
+	var dataD = [[${datad}]];
+	var labels = [[${labels}]];
+	var labelsD = [[${labelsd}]];
+
+    var ctx = document.getElementById('myChart');
+    var ctxP = document.getElementById('Chart');
+    var myPieChart = new Chart(ctxP, {
+        type: 'doughnut',
+        data: {
+            labels: labelsD,
+            datasets: [{
+                label: '就诊趋势',
+                data: dataD,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+            }]
+        },
+        options: {
+            scales: {
+
+            }
+        }
+    });
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: '就诊趋势',
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+</script>
+</body>
+</html>

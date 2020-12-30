@@ -1,46 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>登录</title>
+    <!-- Bootstrap core CSS -->
     <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{css/signin.css}" rel="stylesheet">
     <link th:href="@{css/userLogin.css}" rel="stylesheet">
-    <script th:src="@{js/jquery.js}"></script>
-    <script th:src="@{js/bootstrap.min.js}"></script>
 </head>
-<body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-
-
-        <div id="navbar" class="navbar-collapse collapse">
-
-
-        </div>
+<body class="format">
+<div class="container">
+    <div class="alert alert-warning alert-dismissible" role="alert" th:if="${message} != null">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong th:text="${message}"></strong>
     </div>
-</nav>
-
-    <div class="format" style="margin-top: 100px">
-        <div class=" container" >
-            <form class="well form-signin" method="post" action="/isLogin">
-                <h2 class="form-signin-heading">用户登录</h2>
-                <div>
-                    <label  class="sr-only">用户名 ：</label>
-                    <input type="text" name="username" class="form-control" placeholder="请输入用户名" required autofocus />
-                </div>
-                <div>
-                    <label  class="sr-only">密码 ：</label>
-                    <input type="password"  class="form-control" name="psw" placeholder="请输入密码" required />
-                </div>
-                <div >
-                    <span  class="control" th:text="${msg}"></span>
-                </div>
-
-                <button class="btn btn-lg btn-primary btn-block" id="btn1" type="submit">登录</button>
-
-            </form>
-        </div>
-    </div>
-
+    <form class="form-signin" method="post" th:action="@{/loginPost}">
+        <h2 class="form-signin-heading">登录中心</h2>
+        <label for="inputEmail" class="sr-only">账号：</label>
+        <input name="number" type="text" id="inputEmail" class="form-control" placeholder="请输入用户名" required autofocus>
+        <label for="inputPassword" class="sr-only">密码：</label>
+        <input name="password" type="password" id="inputPassword" class="form-control" placeholder="请输入用户密码" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+</div>
 </body>
 </html>

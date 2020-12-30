@@ -31,8 +31,7 @@ public class DoctorDO {
 	@Column(length = 25)
 	private String jMalibox;
 
-	public DoctorDO() {
-	}
+
 
 	public DoctorDO(Integer dno, String dname, Integer dage, String dsex, String dpwd, String jMalibox) {
 		this.dno = dno;
@@ -41,6 +40,9 @@ public class DoctorDO {
 		this.dsex = dsex;
 		this.dpwd = dpwd;
 		this.jMalibox = jMalibox;
+	}
+
+	public DoctorDO() {
 	}
 
 	public Integer getDno() {

@@ -1,9 +1,12 @@
 package cn.edu.cdtu.SHOMIS.web;
 
+import cn.edu.cdtu.SHOMIS.model.repository.DoctorRepository;
 import cn.edu.cdtu.SHOMIS.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author mars_sea
@@ -21,8 +24,12 @@ public class LoginController {
 	}
 
 	@PostMapping("/loginPost")
-	public @ResponseBody ModelAndView login(Integer number, String password){
+	@ResponseBody
+	public  ModelAndView login(Integer number, String password, HttpServletRequest request){
 		System.out.println(number+"!!!!"+password);
+
+
+
 		String message = loginService.loginByNumberAndPassword(number,password);
 		ModelAndView modelAndView = new ModelAndView();
 		switch (message){

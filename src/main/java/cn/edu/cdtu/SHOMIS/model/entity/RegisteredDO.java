@@ -15,7 +15,6 @@ public class RegisteredDO {
 	 * generator 设置插入完成后，查询最后生成的 ID 填充到该属性中。
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "JDBC")
 	private Integer id;
 
 	@ManyToOne
@@ -37,11 +36,12 @@ public class RegisteredDO {
 	private String visits;
 //顺序
 	@Column
-	private Integer order;
+	private Integer sequence;
 
+	@Column
 	private Float price;
 
-	public RegisteredDO(Integer id, StudentDO student, DoctorDO doctor, Date appTime, String symptom, String visits, Float price,Integer order) {
+	public RegisteredDO(Integer id, StudentDO student, DoctorDO doctor, Date appTime, String symptom, String visits, Float price,Integer sequence) {
 		this.id = id;
 		this.student = student;
 		this.doctor = doctor;
@@ -49,7 +49,7 @@ public class RegisteredDO {
 		this.symptom = symptom;
 		this.visits = visits;
 		this.price = price;
-		this.order = order;
+		this.sequence = sequence;
 	}
 
 	public RegisteredDO() {
@@ -112,12 +112,12 @@ public class RegisteredDO {
 		this.price = price;
 	}
 
-	public Integer getOrder() {
-		return order;
+	public Integer getSequence() {
+		return sequence;
 	}
 
-	public void setOrder(Integer order) {
-		this.order = order;
+	public void setSequence(Integer sequence) {
+		this.sequence = sequence;
 	}
 
 	@Override
@@ -129,7 +129,7 @@ public class RegisteredDO {
 				", appTime=" + appTime +
 				", symptom='" + symptom + '\'' +
 				", visits='" + visits + '\'' +
-				", order=" + order +
+				", sequence=" + sequence +
 				", price=" + price +
 				'}';
 	}

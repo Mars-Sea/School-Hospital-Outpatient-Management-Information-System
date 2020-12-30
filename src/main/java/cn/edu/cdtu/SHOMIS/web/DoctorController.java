@@ -29,7 +29,7 @@ public class DoctorController {
     @RequestMapping("/registration")
     public ModelAndView registrationView(String sno){
         ModelAndView registration = new ModelAndView("doctor/registrationView");
-        System.out.println("sno的值"+sno);
+
         List<RegisteredDO> registeredDOList = new ArrayList<>();
         if (sno != null && !sno.equals("")){
             int s = Integer.parseInt(sno);
@@ -56,6 +56,23 @@ public class DoctorController {
         registration.addObject("regList", regDoList);
 
         return registration;
+    }
+
+    @PostMapping("/alterreg")
+    @ResponseBody
+    public String updateReg(String xh,String sno){
+        String msg = "success";
+        String[] xhList = xh.split(",");
+        String[] snoList = sno.split(",");
+        for (int i = 0; i < snoList.length; i++){
+            int parseInt1 = Integer.parseInt(xhList[i+1]);
+            int parseInt2 = Integer.parseInt(snoList[i]);
+            Integer integer = registeredService.updateBysno(parseInt1, parseInt2);
+            if (integer==0){
+                msg = parseInt2+",failure";
+            }
+        }
+        return msg;
     }
 
 

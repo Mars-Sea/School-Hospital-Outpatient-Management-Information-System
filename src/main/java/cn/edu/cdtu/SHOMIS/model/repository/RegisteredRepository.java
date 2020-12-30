@@ -1,6 +1,7 @@
 package cn.edu.cdtu.SHOMIS.model.repository;
 
 import cn.edu.cdtu.SHOMIS.model.entity.RegisteredDO;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -18,4 +19,8 @@ public interface RegisteredRepository extends CrudRepository<RegisteredDO,Intege
     List<RegisteredDO> findAllByDoctor_DnoOrderBySequence(Integer dno);
 
     List<RegisteredDO> findAllByStudentSno(Integer sno);
+
+    @Modifying
+    @Query("update RegisteredDO set sequence = ?1 where student.sno = ?2 ")
+    Integer updateBysno(Integer sequence, Integer sno);
 }

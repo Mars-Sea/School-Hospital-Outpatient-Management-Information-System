@@ -5,6 +5,7 @@ import cn.edu.cdtu.SHOMIS.model.repository.RegisteredRepository;
 import cn.edu.cdtu.SHOMIS.service.RegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,9 +29,21 @@ public class RegisteredServiceImpl implements RegistrationService {
         return bystudents;
     }
 
+
+
     @Override
     public List<RegisteredDO> findAllByStudentSno(Integer sno) {
         List<RegisteredDO> allByStudentSno = registeredRepository.findAllByStudentSno(sno);
+
         return allByStudentSno;
+
+    }
+
+
+    @Override
+    @Transactional
+    public Integer updateBysno(Integer sequence, Integer sno) {
+        Integer integer = registeredRepository.updateBysno(sequence, sno);
+        return integer;
     }
 }

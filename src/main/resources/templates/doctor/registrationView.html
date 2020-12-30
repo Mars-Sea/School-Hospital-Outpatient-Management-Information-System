@@ -3,14 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>挂号管理</title>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header"  th:content="${_csrf.headerName}"/>
 
     <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{css/dashboard.css}" rel="stylesheet">
     <script th:src="@{js/jquery.js}"></script>
     <script th:src="@{js/bootstrap.min.js}"></script>
-    <script>
+    <script type="text/javascript">
         $(function (){
+            $("#btnEdit").click(function () {
 
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var token =$("meta[name='_csrf']").attr("content");
+
+                $("table tbody tr ").each(function (i) {
+
+                    $(this).children('td').each(function (j) {
+
+                        if (j==0&&$(this).html()==$(this).text()) {
+
+                            $(this).html("<input type=\"text\" name=\"xh\" value=\""+$(this).html()+"\"/>");
+                        }
+
+                    });
+
+
+
+                })
+                $("#notarize").html("<button type=\"button\" id='btnNotarize' style=\"float: right\" class=\"btn btn-default\">确认修改</button>");
+
+
+                $("#btnNotarize").click(function () {
+                    var xhList = new Array();
+                    $("input[name=xh]").each(function (i) {
+                        xhList[i] = $(this).val();
+                    });
+                    var snoList = new Array();
+                    $("table tbody tr ").each(function (i) {
+                        $(this).children('td').each(function (j) {
+                            if (j==1&&$(this).html()==$(this).text()) {
+
+                                snoList[i] = $(this).html();
+                            }
+                        })
+
+
+                    });
+                    console.log(xhList);
+                    console.log(snoList);
+                    var formData = new FormData();
+                    formData.append("xh", xhList);
+                    formData.append("sno", snoList);
+                    $.ajax({
+                        url:"/alterreg",
+                        type:"post",
+                        dataType:"text",
+                        data:formData,
+                        async: false,
+                        contentType: false,
+                        processData: false,
+                        beforeSend : function(xhr) {
+                            xhr.setRequestHeader(header, token);
+                        },
+                        success:function (result) {
+                            if (result=="success"){
+                                alert("修改成功！");
+                                window.location.reload();
+                            }else {
+                                alert(result);
+
+                            }
+                        }
+                    })
+                });
+            });
         })
     </script>
 </head>
@@ -40,14 +107,14 @@
         </div>
     </div>
 </nav>
-
+    <input type="text" name="xh" />
     <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="#"> 功能<span class="sr-only">(current)</span></a></li>
                 <li><a href="#"></a></li>
-                <li><a href="#">订单管理</a></li>
+                <li><a th:href="@{/registration}">订单管理</a></li>
                 <li><a href="#">学生看病</a></li>
             </ul>
 
@@ -99,7 +166,9 @@
 
                     </tbody>
                 </table>
+            <div id="notarize">
 
+            </div>
 
 
 

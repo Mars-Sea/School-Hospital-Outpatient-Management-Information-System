@@ -4,6 +4,7 @@ import cn.edu.cdtu.SHOMIS.model.entity.StudentDO;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 
 /**
@@ -25,4 +26,7 @@ public interface StudentRepository extends CrudRepository<StudentDO, Long> {
 
 	@Query(value = "SELECT * from students WHERE sno LIKE ?1 OR sname LIKE ?2", nativeQuery = true)
 	ArrayList<StudentDO> findallBySearch(String sname, String sno);
+
+	@Transactional
+	void removeBySno(Integer sno);
 }

@@ -6,6 +6,7 @@ import cn.edu.cdtu.SHOMIS.model.entity.StudentDO;
 import cn.edu.cdtu.SHOMIS.model.entity.Today;
 import cn.edu.cdtu.SHOMIS.model.entity.TopStudent;
 import cn.edu.cdtu.SHOMIS.model.repository.AdminRepository;
+import cn.edu.cdtu.SHOMIS.model.repository.DoctorRepository;
 import cn.edu.cdtu.SHOMIS.model.repository.StudentRepository;
 import cn.edu.cdtu.SHOMIS.service.AdminService;
 import cn.edu.cdtu.SHOMIS.service.DoctorService;
@@ -36,6 +37,8 @@ public class AdminController {
 	private AdminRepository adminRepository;
 	@Autowired
 	private StudentRepository studentRepository;
+	@Autowired
+	private DoctorRepository doctorRepository;
 
 	@GetMapping("/admin")
 	public ModelAndView index() throws ParseException {
@@ -98,7 +101,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/student")
-	public @ResponseBody ModelAndView searchSutdent(String search) throws ParseException {
+	public @ResponseBody ModelAndView searchSutdent(String search){
 		ArrayList<StudentDO> students = studentRepository.findallBySearch("%"+search+"%","%"+search+"%");
 		ModelAndView modelAndView = new ModelAndView("/student");
 		modelAndView.addObject("students", students);
@@ -107,11 +110,42 @@ public class AdminController {
 
 	@PostMapping("/addstudent")
 	public @ResponseBody ModelAndView addStudent(String sno, String sname, String ssex, String sage){
-		System.out.println("666666");
 		StudentDO studentDO = new StudentDO(Integer.parseInt(sno),sname,Integer.parseInt(sage),ssex,"123456");
 		studentRepository.save(studentDO);
 		ModelAndView modelAndView = new ModelAndView("redirect:/student");
 		return modelAndView;
 	}
 
+	@GetMapping("/deletestudent{sno}")
+	public ModelAndView deleteStudent(@PathVariable(name="sno") String sno){
+		System.out.println(sno);
+		studentRepository.removeBySno(Integer.parseInt(sno));
+		ModelAndView modelAndView = new ModelAndView("redirect:/student");
+		return modelAndView;
+	}
+
+	@GetMapping("/doctor")
+	public ModelAndView doctor() throws ParseException {
+		ArrayList<DoctorDO> doctors = (ArrayList<DoctorDO>) doctorRepository.findAll();
+		ModelAndView modelAndView = new ModelAndView("/doctor");
+		modelAndView.addObject("doctors", doctors);
+		return modelAndView;
+	}
+
+	@PostMapping("/doctor")
+	public @ResponseBody ModelAndView searchDoctor(String search) {
+		ArrayList<DoctorDO> doctors = doctorRepository.findAllBySearch("%"+search+"%","%"+search+"%");
+		ModelAndView modelAndView = new ModelAndView("/doctor");
+		modelAndView.addObject("doctors", doctors);
+		return modelAndView;
+	}
+
+	@PostMapping("/adddoctor")
+	public @ResponseBody ModelAndView addStudent(String dno, String dname, String dsex, String dage, String jMalibox){
+		System.out.println("666666");
+		DoctorDO doctorDO = new DoctorDO(Integer.parseInt(dno),dname,Integer.parseInt(dage),dsex,"123456",jMalibox);
+		doctorRepository.save(doctorDO);
+		ModelAndView modelAndView = new ModelAndView("redirect:/doctor");
+		return modelAndView;
+	}
 }

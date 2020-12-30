@@ -51,7 +51,7 @@
 			<h1 class="page-header">今日医生</h1>
 
 			<div class="row placeholders">
-				<div class="col-xs-6 col-sm-3 placeholder" th:each="doctor:${doctors}">
+				<div class="col-xs-6 col-sm-3 placeholder" th:each="doctor,iterStat:${doctors}" th:if="${iterStat.count} <= 4">
 					<img th:if="${doctor.getDsex()} == '男'" src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2F01.imgmini.eastday.com%2Fmobile%2F20180109%2F20180109_c0ff21ffc0e606342149dd05b6fe1cfa.jpg&refer=http%3A%2F%2F01.imgmini.eastday.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1611841279&t=98b191450926aee9c48501d21cd6dc97" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
 					<img th:if="${doctor.getDsex()} == '女'" src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2101804683,3120135742&fm=26&gp=0.jpg" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
 					<h4 th:text="${doctor.dname}"></h4>

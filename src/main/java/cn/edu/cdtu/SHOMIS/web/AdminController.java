@@ -110,9 +110,16 @@ public class AdminController {
 
 	@PostMapping("/addstudent")
 	public @ResponseBody ModelAndView addStudent(String sno, String sname, String ssex, String sage){
-		System.out.println("666666");
 		StudentDO studentDO = new StudentDO(Integer.parseInt(sno),sname,Integer.parseInt(sage),ssex,"123456");
 		studentRepository.save(studentDO);
+		ModelAndView modelAndView = new ModelAndView("redirect:/student");
+		return modelAndView;
+	}
+
+	@GetMapping("/deletestudent{sno}")
+	public ModelAndView deleteStudent(@PathVariable(name="sno") String sno){
+		System.out.println(sno);
+		studentRepository.removeBySno(Integer.parseInt(sno));
 		ModelAndView modelAndView = new ModelAndView("redirect:/student");
 		return modelAndView;
 	}

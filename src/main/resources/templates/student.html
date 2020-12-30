@@ -79,7 +79,7 @@
 						<td th:text="${student.getSsex()}"></td>
 						<td>
 							<button data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary glyphicon glyphicon-pencil"></button>
-							<a><button type="button" class="btn btn-primary glyphicon glyphicon-remove"></button></a>
+							<a th:href="@{'/deletestudent'+${student.getSno()}}"   th:onclick="return confirm('将要删除数据，是否继续？')"><button type="button" class="btn btn-primary glyphicon glyphicon-remove"></button></a>
 							<button type="button" class="btn btn-primary glyphicon glyphicon-refresh"></button>
 						</td>
 					</tr>

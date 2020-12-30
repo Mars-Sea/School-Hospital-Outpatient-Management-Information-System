@@ -35,7 +35,7 @@ public class RegisteredDO {
 	@Column(length = 200)
 	private String visits;
 //顺序
-	@Column
+	@Column(unique = true)
 	private Integer sequence;
 
 	@Column

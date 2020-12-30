@@ -64,14 +64,27 @@ public class DoctorController {
         String msg = "success";
         String[] xhList = xh.split(",");
         String[] snoList = sno.split(",");
+
         for (int i = 0; i < snoList.length; i++){
-            int parseInt1 = Integer.parseInt(xhList[i+1]);
-            int parseInt2 = Integer.parseInt(snoList[i]);
-            Integer integer = registeredService.updateBysno(parseInt1, parseInt2);
-            if (integer==0){
-                msg = parseInt2+",failure";
+            for (int j = i+1; j < snoList.length; j++){
+                if (xhList[i].equals(xhList[j])){
+                    msg = "顺序重复!";
+                }
             }
         }
+        if (msg == "success"){
+            for (int i = 0; i < snoList.length; i++){
+
+                int parseInt1 = Integer.parseInt(xhList[i+1]);
+                int parseInt2 = Integer.parseInt(snoList[i]);
+                Integer integer = registeredService.updateBysno(parseInt1, parseInt2);
+                if (integer==0) {
+                    msg = parseInt2 + ",failure";
+
+                }
+            }
+        }
+
         return msg;
     }
 

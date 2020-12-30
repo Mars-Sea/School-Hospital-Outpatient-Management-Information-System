@@ -12,10 +12,10 @@ import java.util.Date;
 public class DrugDO {
 	@Id
 	@Column(length = 25)
-	private String dno;
+	private String mno;
 
 	@Column(length = 50)
-	private String dname;
+	private String mname;
 
 	@Column
 	private Integer inventory;
@@ -47,9 +47,9 @@ public class DrugDO {
 	private String memo;
 
 
-	public DrugDO(String dno, String dname, Integer inventory, Float pDprice, Float lDprice, String SCCJ, Date JHRQ, Date SCRQ, Date SXRQ, String memo) {
-		this.dno = dno;
-		this.dname = dname;
+	public DrugDO(String mno, String mname, Integer inventory, Float pDprice, Float lDprice, String SCCJ, Date JHRQ, Date SCRQ, Date SXRQ, String memo) {
+		this.mno = mno;
+		this.mname = mname;
 		this.inventory = inventory;
 		this.pDprice = pDprice;
 		this.lDprice = lDprice;
@@ -64,20 +64,20 @@ public class DrugDO {
 
 	}
 
-	public String getDno() {
-		return dno;
+	public String getMno() {
+		return mno;
 	}
 
-	public void setDno(String dno) {
-		this.dno = dno;
+	public void setMno(String mno) {
+		this.mno = mno;
 	}
 
-	public String getDname() {
-		return dname;
+	public String getMname() {
+		return mname;
 	}
 
-	public void setDname(String dname) {
-		this.dname = dname;
+	public void setMname(String mname) {
+		this.mname = mname;
 	}
 
 	public Integer getInventory() {
@@ -147,8 +147,8 @@ public class DrugDO {
 	@Override
 	public String toString() {
 		return "DrugDO{" +
-				"dno='" + dno + '\'' +
-				", dname='" + dname + '\'' +
+				"mno='" + mno + '\'' +
+				", mname='" + mname + '\'' +
 				", inventory=" + inventory +
 				", pDprice=" + pDprice +
 				", lDprice=" + lDprice +

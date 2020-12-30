@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生看病</title>
+    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{css/dashboard.css}" rel="stylesheet">
+    <script th:src="@{js/jquery.js}"></script>
+    <script th:src="@{js/bootstrap.min.js}"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+
+
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown" style="margin-right: 10px">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+
+                        <span class="glyphicon glyphicon-user" style="color: rgb(255, 255, 255);"> 医生名</span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">修改个人信息</a></li>
+                        <li><a href="#">修改密码</a></li>
+
+                    </ul>
+                </li>
+                <li><a href="#">退出登录</a></li>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li class="active"><a href="#"> 功能<span class="sr-only">(current)</span></a></li>
+                    <li><a href="#"></a></li>
+                    <li><a th:href="@{/registration}">订单管理</a></li>
+                    <li><a href="#">学生看病</a></li>
+                </ul>
+
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <h1 class="page-header">SHOMIS-doctor</h1>
+                <span ></span>
+
+
+                <table class="table table-striped">
+                    <h4>学生看病</h4>
+
+                    <div>
+                        <form  id="fom" enctype="multipart/form-data">
+                            <input type="hidden" value="">
+
+                            <div class="form-group">
+                                <label>学号</label>
+                                <input  type="text" class="form-control"  name="userName" readonly="readonly"    required>
+                            </div>
+                            <div class="form-group">
+                                <label>学生姓名：</label>
+                                <input type="text" class="form-control"  name="realName" placeholder="填写真实姓名"  required>
+                            </div>
+                            <div class="form-group">
+                                <label>联系电话：</label>
+                                <input type="text" class="form-control"  name="mobile" placeholder="填写联系电话"  required>
+                            </div>
+                            <div class="form-group">
+                                <label>性别：</label>
+                                <div style="display: inline" >
+                                    <input type="radio"  checked  name="sex"  value="true" >男
+                                    &nbsp;
+                                    <input  type="radio"   name="sex"  value="false" >女
+                                </div>
+                                <div style="display: inline" >
+                                    <input type="radio"    name="sex"  value="true" >男
+                                    &nbsp;
+                                    <input  type="radio" checked  name="sex"  value="false" >女
+                                </div>
+                            </div>
+                            <div>
+                                <label>出生日期：</label>
+                                <input type="date"  name="birthday" class="form-control" required>
+                            </div>
+                            <div >
+                                <label>住址：</label>
+                                <div >
+                                    <select class="form-control col-lg-4" style="width: 155px" name="province" id="province" >
+                                        <option  id="userProvince"  ></option>
+                                        <!-- 利用js把省份添加到下拉列表里-->
+
+                                    </select>
+                                    <select class="form-control col-lg-3" style="width: 145px" name="city" id="city" >
+                                        <option id="userCity" >城市</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div >
+                                <label>邮箱：</label>
+                                <span></span>
+                                <input type="email"  name="mailbox" class="form-control" required>
+                            </div>
+                            <hr/>
+                            <button  type="button" id="btn1"  class="btn btn-lg btn-primary btn-block">保存</button>
+                        </form>
+
+                    </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

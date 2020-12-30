@@ -58,6 +58,13 @@ public class DoctorController {
         return registration;
     }
 
+    @RequestMapping("/seeDoctor")
+    public ModelAndView seeDoctor(){
+        ModelAndView seeDoctor = new ModelAndView("doctor/seeDoctor");
+
+        return seeDoctor;
+    }
+
     @PostMapping("/alterreg")
     @ResponseBody
     public String updateReg(String xh,String sno){
@@ -87,6 +94,8 @@ public class DoctorController {
 
         return msg;
     }
+
+
 
 
 }

@@ -2,6 +2,7 @@ package cn.edu.cdtu.SHOMIS.model.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author mars_sea
@@ -32,8 +33,8 @@ public class RegisteredDO {
 	/**
 	 * 处方
 	 */
-	@Column(length = 200)
-	private String visits;
+	@OneToMany
+	private List<DrugDO> drugList;
 //顺序
 	@Column(unique = true)
 	private Integer sequence;
@@ -41,15 +42,15 @@ public class RegisteredDO {
 	@Column
 	private Float price;
 
-	public RegisteredDO(Integer id, StudentDO student, DoctorDO doctor, Date appTime, String symptom, String visits, Float price,Integer sequence) {
+	public RegisteredDO(Integer id, StudentDO student, DoctorDO doctor, Date appTime, String symptom, List<DrugDO> drugList, Integer sequence, Float price) {
 		this.id = id;
 		this.student = student;
 		this.doctor = doctor;
 		this.appTime = appTime;
 		this.symptom = symptom;
-		this.visits = visits;
-		this.price = price;
+		this.drugList = drugList;
 		this.sequence = sequence;
+		this.price = price;
 	}
 
 	public RegisteredDO() {
@@ -96,12 +97,12 @@ public class RegisteredDO {
 		this.symptom = symptom;
 	}
 
-	public String getVisits() {
-		return visits;
+	public List<DrugDO> getDrugList() {
+		return drugList;
 	}
 
-	public void setVisits(String visits) {
-		this.visits = visits;
+	public void setDrugList(List<DrugDO> drugList) {
+		this.drugList = drugList;
 	}
 
 	public Float getPrice() {
@@ -128,7 +129,7 @@ public class RegisteredDO {
 				", doctor=" + doctor +
 				", appTime=" + appTime +
 				", symptom='" + symptom + '\'' +
-				", visits='" + visits + '\'' +
+				", drugList=" + drugList +
 				", sequence=" + sequence +
 				", price=" + price +
 				'}';

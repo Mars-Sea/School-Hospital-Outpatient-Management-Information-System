@@ -1,7 +1,10 @@
 package cn.edu.cdtu.SHOMIS.model.repository;
 
 import cn.edu.cdtu.SHOMIS.model.entity.AdminDO;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+
+import java.util.ArrayList;
 
 /**
  * @author mars_sea
@@ -18,4 +21,6 @@ public interface AdminRepository extends CrudRepository<AdminDO,Integer> {
 	 */
 	AdminDO findByAnoAndApwd(Integer ano, String apwd);
 
+	@Query(value = "select r.id,r.app_time,d.dname,s.sname from registers r,doctors d,students s WHERE r.doctor_dno = d.dno AND r.student_sno=s.sno",nativeQuery = true)
+	ArrayList<String> today();
 }

@@ -24,19 +24,22 @@ public class LoginController {
 	public @ResponseBody ModelAndView login(Integer number, String password){
 		System.out.println(number+"!!!!"+password);
 		String message = loginService.loginByNumberAndPassword(number,password);
+		ModelAndView modelAndView = new ModelAndView();
 		switch (message){
 			case "学生":
-				return new ModelAndView("/student");
+				modelAndView.setViewName("redirect:/student");
+				break;
 			case "医生":
-				return new ModelAndView("/doctor");
+				modelAndView.setViewName("redirect:/doctor");
+				break;
 			case "管理员":
-				return new ModelAndView("/admin");
+				modelAndView.setViewName("redirect:/admin");
+				break;
 			default:
-				ModelAndView modelAndView = new ModelAndView("/login");
+				modelAndView.setViewName("/login");
 				modelAndView.addObject("message",message);
-				return modelAndView;
+
 		}
-
-
+		return modelAndView;
 	}
 }

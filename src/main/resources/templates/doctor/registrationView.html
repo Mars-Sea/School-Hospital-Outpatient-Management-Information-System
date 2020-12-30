@@ -115,7 +115,7 @@
                 <li class="active"><a href="#"> 功能<span class="sr-only">(current)</span></a></li>
                 <li><a href="#"></a></li>
                 <li><a th:href="@{/registration}">订单管理</a></li>
-                <li><a href="#">学生看病</a></li>
+                <li><a th:href="@{/ageSee}">学生看病</a></li>
             </ul>
 
         </div>
@@ -155,6 +155,7 @@
                         <th>顺序</th>
                         <th>学号</th>
                         <th>姓名</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -162,6 +163,11 @@
                             <td>[[${reg.sequence}]]</td>
                             <td>[[${reg.sno}]]</td>
                             <td>[[${reg.sname}]]</td>
+                            <td>
+                                <a th:href="@{/seeDoctor(sno=${reg.sno})}">
+                                    <span class="glyphicon glyphicon-circle-arrow-right" style="color: rgb(0, 106, 255);"> 跳转</span>
+                                </a>
+                            </td>
                         </tr>
 
                     </tbody>

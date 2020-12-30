@@ -1,27 +1,15 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>欢迎登录</title>
-
-    <!-- Bootstrap core CSS -->
+    <meta charset="UTF-8">
+    <title>学生看病</title>
 
     <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{css/dashboard.css}" rel="stylesheet">
     <script th:src="@{js/jquery.js}"></script>
     <script th:src="@{js/bootstrap.min.js}"></script>
-
-
 </head>
-
 <body>
-
-
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
 
@@ -46,41 +34,46 @@
         </div>
     </div>
 </nav>
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
             <ul class="nav nav-sidebar">
                 <li class="active"><a href="#"> 功能<span class="sr-only">(current)</span></a></li>
                 <li><a href="#"></a></li>
-                <li><a th:href="@{registration}">订单管理</a></li>
+                <li><a th:href="@{/registration}">订单管理</a></li>
                 <li><a th:href="@{/ageSee}">学生看病</a></li>
             </ul>
 
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">SHOMIS-DOCTOR</h1>
+            <h1 class="page-header">SHOMIS-doctor</h1>
+            <span ></span>
 
-            <div class="row placeholders" style="margin-left: 250px;">
-                <div class="col-xs-6 col-sm-3 placeholder" style="margin-right: 150px;">
-                    <img th:src="@{images/img2.jpg}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4><a th:href="@{registration}">挂号管理</a></h4>
+
+            <div class="table table-striped">
+                <h4>学生看病</h4>
+
+                <div style="width: 350px;margin-left: 450px">
+                    <form  id="fom" th:action="@{/seeDoctor}" method="get">
+                        <input type="hidden" value="">
+
+
+                        <div class="form-group">
+                            <label>学号：</label>
+                            <input type="text" class="form-control"  name="sno"     required>
+                        </div>
+
+
+                        <button  type="submit" id="btn1"  class="btn  btn-primary btn-block">提交</button>
+                    </form>
 
                 </div>
-                <div class="col-xs-6 col-sm-3 placeholder" style="margin-left: 100px;">
-                    <img th:src="@{images/img1.jpg}" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-                    <h4><a th:href="@{/ageSee}">学生看病</a></h4>
 
-                </div>
+
 
             </div>
-
-
         </div>
     </div>
-</div>
-
-
 </div>
 </body>
 </html>

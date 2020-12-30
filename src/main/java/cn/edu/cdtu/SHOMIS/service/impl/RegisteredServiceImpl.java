@@ -32,8 +32,8 @@ public class RegisteredServiceImpl implements RegistrationService {
 
 
     @Override
-    public List<RegisteredDO> findAllByStudentSno(Integer sno) {
-        List<RegisteredDO> allByStudentSno = registeredRepository.findAllByStudentSno(sno);
+    public RegisteredDO findAllByStudentSno(Integer sno) {
+        RegisteredDO allByStudentSno = registeredRepository.findAllByStudentSno(sno);
 
         return allByStudentSno;
 
@@ -44,6 +44,13 @@ public class RegisteredServiceImpl implements RegistrationService {
     @Transactional
     public Integer updateBysno(Integer sequence, Integer sno) {
         Integer integer = registeredRepository.updateBysno(sequence, sno);
+        return integer;
+    }
+
+    @Override
+    @Transactional
+    public Integer updateSee(String prescription, Float price, Integer sno) {
+        Integer integer = registeredRepository.updateSee(prescription, price, sno);
         return integer;
     }
 }

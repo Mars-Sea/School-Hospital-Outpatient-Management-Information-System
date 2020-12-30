@@ -1,8 +1,10 @@
 package cn.edu.cdtu.SHOMIS.web;
 
+import cn.edu.cdtu.SHOMIS.model.entity.DrugDO;
 import cn.edu.cdtu.SHOMIS.model.entity.RegDo;
 import cn.edu.cdtu.SHOMIS.model.entity.RegisteredDO;
 import cn.edu.cdtu.SHOMIS.model.entity.StudentDO;
+import cn.edu.cdtu.SHOMIS.model.repository.DrugRepository;
 import cn.edu.cdtu.SHOMIS.service.impl.RegisteredServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,9 @@ public class DoctorController {
     @Autowired
     protected RegisteredServiceImpl registeredService;
 
+    @Autowired
+    protected DrugRepository drugRepository;
+
     @RequestMapping("/doctor")
     public ModelAndView doctorView(){
         ModelAndView doctor = new ModelAndView("doctor/doctorView");
@@ -33,8 +38,8 @@ public class DoctorController {
         List<RegisteredDO> registeredDOList = new ArrayList<>();
         if (sno != null && !sno.equals("")){
             int s = Integer.parseInt(sno);
-            registeredDOList = registeredService.findAllByStudentSno(s);
-            if (registeredDOList.size()==0){
+            RegisteredDO registered = registeredService.findAllByStudentSno(s);
+            if (registered==null){
                 registration.addObject("msg", "错误！该挂号信息不存在！");
             }
         }else {
@@ -58,11 +63,46 @@ public class DoctorController {
         return registration;
     }
 
+    @RequestMapping("/ageSee")
+    public ModelAndView ageSee(){
+        ModelAndView modelAndView = new ModelAndView("doctor/ageSeeDoctor");
+
+        return modelAndView;
+    }
+
+
     @RequestMapping("/seeDoctor")
-    public ModelAndView seeDoctor(){
+    public ModelAndView seeDoctor(String sno){
         ModelAndView seeDoctor = new ModelAndView("doctor/seeDoctor");
+        int i = Integer.parseInt(sno);
+
+        RegisteredDO registeredDO = registeredService.findAllByStudentSno(i);
+
+        StudentDO student = registeredDO.getStudent();
+
+
+        List<DrugDO> all = (ArrayList)drugRepository.findAll();
+        System.out.println(all);
+
+        seeDoctor.addObject("reg", registeredDO);
+        seeDoctor.addObject("stu", student);
+        seeDoctor.addObject("drugList",all);
+
+
 
         return seeDoctor;
+    }
+
+    @PostMapping("/updateDrug")
+    @ResponseBody
+    public String updateDrug(String prescription, Integer sno,Float price){
+        String msg = "success";
+
+        Integer integer = registeredService.updateSee(prescription, price, sno);
+       if (integer==0){
+           msg = "修改失败！";
+       }
+        return msg;
     }
 
     @PostMapping("/alterreg")

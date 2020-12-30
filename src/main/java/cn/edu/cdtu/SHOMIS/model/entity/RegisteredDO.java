@@ -33,8 +33,8 @@ public class RegisteredDO {
 	/**
 	 * 处方
 	 */
-	@OneToMany
-	private List<DrugDO> drugList;
+	@Column(length = 200)
+	private String prescription;
 //顺序
 	@Column(unique = true)
 	private Integer sequence;
@@ -42,13 +42,13 @@ public class RegisteredDO {
 	@Column
 	private Float price;
 
-	public RegisteredDO(Integer id, StudentDO student, DoctorDO doctor, Date appTime, String symptom, List<DrugDO> drugList, Integer sequence, Float price) {
+	public RegisteredDO(Integer id, StudentDO student, DoctorDO doctor, Date appTime, String symptom, String prescription, Integer sequence, Float price) {
 		this.id = id;
 		this.student = student;
 		this.doctor = doctor;
 		this.appTime = appTime;
 		this.symptom = symptom;
-		this.drugList = drugList;
+		this.prescription = prescription;
 		this.sequence = sequence;
 		this.price = price;
 	}
@@ -97,12 +97,12 @@ public class RegisteredDO {
 		this.symptom = symptom;
 	}
 
-	public List<DrugDO> getDrugList() {
-		return drugList;
+	public String getPrescription() {
+		return prescription;
 	}
 
-	public void setDrugList(List<DrugDO> drugList) {
-		this.drugList = drugList;
+	public void setPrescription(String prescription) {
+		this.prescription = prescription;
 	}
 
 	public Float getPrice() {
@@ -129,7 +129,7 @@ public class RegisteredDO {
 				", doctor=" + doctor +
 				", appTime=" + appTime +
 				", symptom='" + symptom + '\'' +
-				", drugList=" + drugList +
+				", prescription='" + prescription + '\'' +
 				", sequence=" + sequence +
 				", price=" + price +
 				'}';

@@ -17,7 +17,10 @@ public interface RegistrationService {
 
 
 
-    List<RegisteredDO> findAllByStudentSno(Integer sno);
+    RegisteredDO findAllByStudentSno(Integer sno);
 
     Integer updateBysno( Integer sequence, Integer sno);
+
+    Integer updateSee(String prescription, Float price, Integer sno);
+
 }

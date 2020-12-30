@@ -2,6 +2,7 @@ package cn.edu.cdtu.SHOMIS.model.entity;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author mars_sea
@@ -12,6 +13,7 @@ import java.util.Date;
 public class DrugDO {
 	@Id
 	@Column(length = 25)
+
 	private String mno;
 
 	@Column(length = 50)
@@ -45,6 +47,11 @@ public class DrugDO {
 	//备注
 	@Column
 	private String memo;
+
+
+
+
+
 
 
 	public DrugDO(String mno, String mname, Integer inventory, Float pDprice, Float lDprice, String SCCJ, Date JHRQ, Date SCRQ, Date SXRQ, String memo) {
@@ -143,6 +150,7 @@ public class DrugDO {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
+
 
 	@Override
 	public String toString() {

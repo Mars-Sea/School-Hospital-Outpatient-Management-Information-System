@@ -2,11 +2,58 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header"  th:content="${_csrf.headerName}"/>
     <title>学生看病</title>
     <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{css/dashboard.css}" rel="stylesheet">
     <script th:src="@{js/jquery.js}"></script>
     <script th:src="@{js/bootstrap.min.js}"></script>
+
+    <script type="text/javascript">
+        $(function (){
+
+
+            $("#btn1").click(function (){
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var token =$("meta[name='_csrf']").attr("content");
+
+                var List = new Array();
+                $("input:checkbox:checked").each(function (i) {
+                    List[i] = $(this).val();
+                });
+                var sno =  $("input[name=sno]").val();
+                var price = $("input[name=price]").val();
+
+                var formData = new FormData();
+                formData.append("prescription", List);
+                formData.append("sno", sno);
+                formData.append("price", price);
+                $.ajax({
+                    url:"/updateDrug",
+                    type:"post",
+                    dataType:"text",
+                    data:formData,
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    beforeSend : function(xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success:function (result) {
+                        if (result=="success"){
+                            alert("修改成功！");
+                            window.location.reload();
+                        }else {
+                            alert(result);
+
+                        }
+                    }
+                })
+            })
+        })
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -40,7 +87,7 @@
                     <li class="active"><a href="#"> 功能<span class="sr-only">(current)</span></a></li>
                     <li><a href="#"></a></li>
                     <li><a th:href="@{/registration}">订单管理</a></li>
-                    <li><a href="#">学生看病</a></li>
+                    <li><a th:href="@{/ageSee}">学生看病</a></li>
                 </ul>
 
             </div>
@@ -49,69 +96,65 @@
                 <span ></span>
 
 
-                <table class="table table-striped">
+                <div class="table table-striped">
                     <h4>学生看病</h4>
 
-                    <div>
-                        <form  id="fom" enctype="multipart/form-data">
+                    <div style="width: 350px;margin-left: 450px">
+                        <form  id="fom" >
                             <input type="hidden" value="">
 
                             <div class="form-group">
                                 <label>学号</label>
-                                <input  type="text" class="form-control"  name="userName" readonly="readonly"    required>
+                                <input  type="text" class="form-control"  name="sno" readonly="readonly"  th:value="${stu.sno}"  required>
                             </div>
                             <div class="form-group">
                                 <label>学生姓名：</label>
-                                <input type="text" class="form-control"  name="realName" placeholder="填写真实姓名"  required>
+                                <input type="text" class="form-control"  name="sname"  th:value="${stu.sname}" readonly="readonly"  required>
                             </div>
                             <div class="form-group">
-                                <label>联系电话：</label>
-                                <input type="text" class="form-control"  name="mobile" placeholder="填写联系电话"  required>
+                                <label>顺序：</label>
+                                <input type="text" class="form-control"  name="sequence"  th:value="${reg.sequence}" readonly="readonly"  required>
                             </div>
                             <div class="form-group">
-                                <label>性别：</label>
-                                <div style="display: inline" >
-                                    <input type="radio"  checked  name="sex"  value="true" >男
-                                    &nbsp;
-                                    <input  type="radio"   name="sex"  value="false" >女
-                                </div>
-                                <div style="display: inline" >
-                                    <input type="radio"    name="sex"  value="true" >男
-                                    &nbsp;
-                                    <input  type="radio" checked  name="sex"  value="false" >女
+                                <label>处方:</label>
+
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <table class="table table-hover" style="width: 300px">
+                                        <tr>
+                                            <th></th>
+                                            <th>药品名</th>
+                                            <th>零售价</th>
+                                            <th>库存</th>
+                                        </tr>
+                                        <tr th:each="drug,stat:${drugList}">
+                                            <td>
+                                                <input type="checkbox" name="prescription" th:value="${drug.mno}">
+                                            </td>
+                                            <td>
+                                                [[${drug.mname}]]
+                                            </td>
+                                            <td>[[${drug.lDprice}]]</td>
+                                            <td>[[${drug.inventory}]]</td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                             <div>
-                                <label>出生日期：</label>
-                                <input type="date"  name="birthday" class="form-control" required>
-                            </div>
-                            <div >
-                                <label>住址：</label>
-                                <div >
-                                    <select class="form-control col-lg-4" style="width: 155px" name="province" id="province" >
-                                        <option  id="userProvince"  ></option>
-                                        <!-- 利用js把省份添加到下拉列表里-->
+                                <label>价格：</label>
 
-                                    </select>
-                                    <select class="form-control col-lg-3" style="width: 145px" name="city" id="city" >
-                                        <option id="userCity" >城市</option>
-                                    </select>
-                                </div>
+                                <input type="text"  name="price" id="pr" class="form-control" required>
                             </div>
-                            <div >
-                                <label>邮箱：</label>
-                                <span></span>
-                                <input type="email"  name="mailbox" class="form-control" required>
-                            </div>
-                            <hr/>
-                            <button  type="button" id="btn1"  class="btn btn-lg btn-primary btn-block">保存</button>
+
+                            <button  type="button" id="btn1"  class="btn btn-lg btn-primary btn-block">提交</button>
                         </form>
 
                     </div>
 
 
 
-
+                </div>
             </div>
         </div>
     </div>

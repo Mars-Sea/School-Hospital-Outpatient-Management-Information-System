@@ -8,9 +8,14 @@ spring:
     username: root
     password: root
   jpa:
-    show-sql: true # 是否显示sql语句
+    show-sql: false # 是否显示sql语句
     generate-ddl: false # Whether to initialize the schema on startup.
     hibernate:
       ddl-auto: update
+
+    properties:
+      hibernate:
+        dialect:  org.hibernate.dialect.MySQL57Dialect
+
   thymeleaf:
     cache: false

@@ -29,7 +29,7 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">用户名</a></li>
+				<li><a href="#">[[${admin.name}]]</a></li>
 				<li><a href="#">退出登录</a></li>
 			</ul>
 		</div>
@@ -42,7 +42,7 @@
 			<ul class="nav nav-sidebar">
 				<li class="active"><a th:href="@{/admin}">今日概况</a></li>
 				<li><a th:href="@{/student}">学生信息</a></li>
-				<li><a href="#">药品信息</a></li>
+				<li><a th:href="@{/drug}">药品信息</a></li>
 				<li><a th:href="@{/doctor}">医生信息</a></li>
 				<li><a th:href="@{/statistics}">统计信息</a></li>
 			</ul>

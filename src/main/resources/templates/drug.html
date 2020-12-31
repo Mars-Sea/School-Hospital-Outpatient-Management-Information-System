@@ -41,19 +41,19 @@
 		<div class="col-sm-3 col-md-2 sidebar">
 			<ul class="nav nav-sidebar">
 				<li><a th:href="@{/admin}">今日概况</a></li>
-				<li class="active"><a th:href="@{/student}">学生信息</a></li>
-				<li><a th:href="@{/drug}">药品信息</a></li>
+				<li><a th:href="@{/student}">学生信息</a></li>
+				<li  class="active"><a th:href="@{/drug}">药品信息</a></li>
 				<li><a th:href="@{/doctor}">医生信息</a></li>
 				<li><a th:href="@{/statistics}">统计信息</a></li>
 			</ul>
 		</div>
 		<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<h2 class="sub-header col-md-9">学生信息
-				<button data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary">添加学生</button> </h2>
+			<h2 class="sub-header col-md-9">药品信息
+				<button data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary">添加药品</button> </h2>
 			<div class=" col-md-3" style="margin-top: 20px;">
 				<form method="post" th:action="@{/student}">
 					<div class="input-group">
-						<input name="search" type="text" class="form-control" placeholder="请输入学生姓名或学号">
+						<input name="search" type="text" class="form-control" placeholder="请输入药品名或药品号">
 						<span class="input-group-btn">
 						<button class="btn btn-default" type="submit">查询</button>
 					</span>
@@ -64,22 +64,22 @@
 				<table class="table table-striped">
 					<thead>
 					<tr>
-						<th>学号</th>
-						<th>学生姓名</th>
-						<th>学生年龄</th>
-						<th>学生性别</th>
+						<th>药品号</th>
+						<th>药品名</th>
+						<th>生产厂家</th>
+						<th>零售价</th>
 						<th>操作</th>
 					</tr>
 					</thead>
 					<tbody>
-					<tr th:each="student:${students}">
-						<td th:text="${student.getSno()}"></td>
-						<td th:text="${student.getSname()}"></td>
-						<td th:text="${student.getSage()}"></td>
-						<td th:text="${student.getSsex()}"></td>
+					<tr th:each="drug:${drugs}">
+						<td th:text="${drug.getMno()}"></td>
+						<td th:text="${drug.getMname()}"></td>
+						<td th:text="${drug.getSCCJ()}"></td>
+						<td th:text="${drug.getlDprice()}"></td>
 						<td>
 							<button data-toggle="modal" data-target="#myModal" type="button" class="btn btn-primary glyphicon glyphicon-pencil"></button>
-							<a th:href="@{'/deletestudent'+${student.getSno()}}"   th:onclick="return confirm('将要删除数据，是否继续？')"><button type="button" class="btn btn-primary glyphicon glyphicon-remove"></button></a>
+							<a th:href="@{'/deletestudent'+${drug.getMno()}}"   th:onclick="return confirm('将要删除数据，是否继续？')"><button type="button" class="btn btn-primary glyphicon glyphicon-remove"></button></a>
 							<button type="button" class="btn btn-primary glyphicon glyphicon-refresh"></button>
 						</td>
 					</tr>
@@ -95,20 +95,20 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">新增学生信息</h4>
+				<h4 class="modal-title" id="myModalLabel">新增药品信息</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" method="post" th:action="@{/addstudent}" id="addstudentform">
 					<div class="form-group">
-						<label  class="col-sm-3 control-label">学号：</label>
+						<label  class="col-sm-3 control-label">药品号：</label>
 						<div class="col-sm-9">
-							<input name="sno" type="text"  class="form-control" placeholder="学号">
+							<input name="sno" type="text"  class="form-control" placeholder="药品号">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label">学生姓名：</label>
+						<label class="col-sm-3 control-label">药品名：</label>
 						<div class="col-sm-9">
-							<input name="sname" type="text" class="form-control" placeholder="学生姓名">
+							<input name="sname" type="text" class="form-control" placeholder="药品名">
 						</div>
 					</div>
 					<div class="form-group">
@@ -140,10 +140,10 @@
 <script th:src="@{js/jquery.js}"></script>
 <script th:src="@{js/bootstrap.js}"></script>
 <script>
-	var addbtn = document.getElementById("addbtn");
-	var addform = document.getElementById("addstudentform");
-	addbtn.onclick = function () {
-		addform.submit();
+    var addbtn = document.getElementById("addbtn");
+    var addform = document.getElementById("addstudentform");
+    addbtn.onclick = function () {
+        addform.submit();
     }
 </script>
 </body>

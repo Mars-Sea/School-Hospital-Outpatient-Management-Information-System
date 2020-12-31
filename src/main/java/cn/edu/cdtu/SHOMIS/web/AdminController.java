@@ -1,12 +1,10 @@
 package cn.edu.cdtu.SHOMIS.web;
 
 
-import cn.edu.cdtu.SHOMIS.model.entity.DoctorDO;
-import cn.edu.cdtu.SHOMIS.model.entity.StudentDO;
-import cn.edu.cdtu.SHOMIS.model.entity.Today;
-import cn.edu.cdtu.SHOMIS.model.entity.TopStudent;
+import cn.edu.cdtu.SHOMIS.model.entity.*;
 import cn.edu.cdtu.SHOMIS.model.repository.AdminRepository;
 import cn.edu.cdtu.SHOMIS.model.repository.DoctorRepository;
+import cn.edu.cdtu.SHOMIS.model.repository.DrugRepository;
 import cn.edu.cdtu.SHOMIS.model.repository.StudentRepository;
 import cn.edu.cdtu.SHOMIS.service.AdminService;
 import cn.edu.cdtu.SHOMIS.service.DoctorService;
@@ -18,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,9 +38,12 @@ public class AdminController {
 	private StudentRepository studentRepository;
 	@Autowired
 	private DoctorRepository doctorRepository;
+	@Autowired
+	private DrugRepository drugRepository;
 
 	@GetMapping("/admin")
-	public ModelAndView index() throws ParseException {
+	public ModelAndView index(HttpServletRequest request) throws ParseException {
+		AdminDO admin = (AdminDO) request.getSession().getAttribute("admin");
 		ArrayList<DoctorDO> doctors = doctorService.findAllDoctor();
 		Date date = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -146,6 +148,14 @@ public class AdminController {
 		DoctorDO doctorDO = new DoctorDO(Integer.parseInt(dno),dname,Integer.parseInt(dage),dsex,"123456",jMalibox);
 		doctorRepository.save(doctorDO);
 		ModelAndView modelAndView = new ModelAndView("redirect:/doctor");
+		return modelAndView;
+	}
+
+	@GetMapping("/drug")
+	public ModelAndView drug() throws ParseException {
+		ArrayList<DrugDO> drugs = (ArrayList<DrugDO>) drugRepository.findAll();
+		ModelAndView modelAndView = new ModelAndView("/drug");
+		modelAndView.addObject("drugs", drugs);
 		return modelAndView;
 	}
 }

@@ -7,7 +7,10 @@ import cn.edu.cdtu.SHOMIS.model.repository.StudentRepository;
 import cn.edu.cdtu.SHOMIS.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -42,5 +45,12 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return "用户不存在，或者用户名或密码错误！";
 
+	}
+
+	@RequestMapping("/logout")
+	@ResponseBody
+	public String Logout(HttpServletRequest request){
+		request.getServletContext().removeAttribute(request.getSession().getId());
+		return "success";
 	}
 }

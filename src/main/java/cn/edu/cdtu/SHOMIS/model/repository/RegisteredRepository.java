@@ -27,6 +27,6 @@ public interface RegisteredRepository extends CrudRepository<RegisteredDO,Intege
     Integer updateBysno(Integer sequence, Integer sno);
 
     @Modifying
-    @Query("update RegisteredDO set prescription = ?1,price = ?2 where student.sno = ?3")
-    Integer updateSee(String prescription, Float price, Integer sno);
+    @Query("update RegisteredDO set prescription = ?1,price = ?2,symptom = ?4 where student.sno = ?3")
+    Integer updateSee(String prescription, Float price, Integer sno, String symptom);
 }

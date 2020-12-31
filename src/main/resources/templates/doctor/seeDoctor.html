@@ -25,11 +25,15 @@
                 });
                 var sno =  $("input[name=sno]").val();
                 var price = $("input[name=price]").val();
+                var symptom = $("textarea[name=symptom]").val();
+
+
 
                 var formData = new FormData();
                 formData.append("prescription", List);
                 formData.append("sno", sno);
                 formData.append("price", price);
+                formData.append("symptom", symptom);
                 $.ajax({
                     url:"/updateDrug",
                     type:"post",
@@ -44,7 +48,7 @@
                     success:function (result) {
                         if (result=="success"){
                             alert("修改成功！");
-                            window.location.reload();
+                            window.location.replace("/registration");
                         }else {
                             alert(result);
 
@@ -116,7 +120,16 @@
                                 <input type="text" class="form-control"  name="sequence"  th:value="${reg.sequence}" readonly="readonly"  required>
                             </div>
                             <div class="form-group">
-                                <label>处方:</label>
+                                <label>顺序：</label>
+                                <input type="text" class="form-control"  name="sequence"  th:value="${reg.sequence}" readonly="readonly"  required>
+                            </div>
+                            <div class="form-group">
+                                <label>症状：</label>
+                                <textarea rows="5" cols="30" name="symptom">
+                                </textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>推荐用药:</label>
 
                             </div>
                             <div class="panel panel-default">

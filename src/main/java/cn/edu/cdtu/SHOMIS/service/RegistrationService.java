@@ -21,6 +21,6 @@ public interface RegistrationService {
 
     Integer updateBysno( Integer sequence, Integer sno);
 
-    Integer updateSee(String prescription, Float price, Integer sno);
+    Integer updateSee(String prescription, Float price, Integer sno, String symptom);
 
 }

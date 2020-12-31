@@ -49,8 +49,8 @@ public class RegisteredServiceImpl implements RegistrationService {
 
     @Override
     @Transactional
-    public Integer updateSee(String prescription, Float price, Integer sno) {
-        Integer integer = registeredRepository.updateSee(prescription, price, sno);
+    public Integer updateSee(String prescription, Float price, Integer sno, String symptom) {
+        Integer integer = registeredRepository.updateSee(prescription, price, sno, symptom);
         return integer;
     }
 }

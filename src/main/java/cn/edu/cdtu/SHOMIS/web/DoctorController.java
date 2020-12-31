@@ -1,9 +1,6 @@
 package cn.edu.cdtu.SHOMIS.web;
 
-import cn.edu.cdtu.SHOMIS.model.entity.DrugDO;
-import cn.edu.cdtu.SHOMIS.model.entity.RegDo;
-import cn.edu.cdtu.SHOMIS.model.entity.RegisteredDO;
-import cn.edu.cdtu.SHOMIS.model.entity.StudentDO;
+import cn.edu.cdtu.SHOMIS.model.entity.*;
 import cn.edu.cdtu.SHOMIS.model.repository.DrugRepository;
 import cn.edu.cdtu.SHOMIS.service.impl.RegisteredServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,10 +22,11 @@ public class DoctorController {
     @Autowired
     protected DrugRepository drugRepository;
 
-    @RequestMapping("/doctor")
-    public ModelAndView doctorView(){
+    @RequestMapping("/doctorView")
+    public ModelAndView doctorView(HttpServletRequest request){
         ModelAndView doctor = new ModelAndView("doctor/doctorView");
-
+        DoctorDO doctor1 = (DoctorDO) request.getSession().getAttribute("doctor");
+        doctor.addObject("doc",doctor1);
         return doctor;
     }
 
@@ -95,13 +94,13 @@ public class DoctorController {
 
     @PostMapping("/updateDrug")
     @ResponseBody
-    public String updateDrug(String prescription, Integer sno,Float price){
+    public String updateDrug(String prescription, Integer sno,Float price,String symptom){
         String msg = "success";
-
-        Integer integer = registeredService.updateSee(prescription, price, sno);
-       if (integer==0){
+        System.out.println(symptom);
+        Integer integer = registeredService.updateSee(prescription, price, sno, symptom);
+        if (integer==0){
            msg = "修改失败！";
-       }
+        }
         return msg;
     }
 

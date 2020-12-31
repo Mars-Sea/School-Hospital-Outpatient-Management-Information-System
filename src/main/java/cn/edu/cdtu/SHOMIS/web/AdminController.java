@@ -51,6 +51,7 @@ public class AdminController {
 		ModelAndView modelAndView = new ModelAndView("/admin");
 		modelAndView.addObject("doctors", doctors);
 		modelAndView.addObject("todays", todays);
+		modelAndView.addObject("admin", admin);
 		return modelAndView;
 	}
 
@@ -126,6 +127,11 @@ public class AdminController {
 		return modelAndView;
 	}
 
+	/**
+	 * 打开医生管理页面
+	 * @return
+	 * @throws ParseException
+	 */
 	@GetMapping("/doctor")
 	public ModelAndView doctor() throws ParseException {
 		ArrayList<DoctorDO> doctors = (ArrayList<DoctorDO>) doctorRepository.findAll();
@@ -134,6 +140,11 @@ public class AdminController {
 		return modelAndView;
 	}
 
+	/**
+	 * 查询医生信息
+	 * @param search 传入查询内容
+	 * @return
+	 */
 	@PostMapping("/doctor")
 	public @ResponseBody ModelAndView searchDoctor(String search) {
 		ArrayList<DoctorDO> doctors = doctorRepository.findAllBySearch("%"+search+"%","%"+search+"%");
@@ -142,6 +153,15 @@ public class AdminController {
 		return modelAndView;
 	}
 
+	/**
+	 * 添加医生信息
+	 * @param dno 医生编号
+	 * @param dname 医生名字
+	 * @param dsex 医生性别
+	 * @param dage 医生年龄
+	 * @param jMalibox 医生邮箱
+	 * @return
+	 */
 	@PostMapping("/adddoctor")
 	public @ResponseBody ModelAndView addStudent(String dno, String dname, String dsex, String dage, String jMalibox){
 		System.out.println("666666");
@@ -151,11 +171,57 @@ public class AdminController {
 		return modelAndView;
 	}
 
+	/**
+	 * 打开药品管理页面
+	 * @return 无
+	 * @throws ParseException
+	 */
 	@GetMapping("/drug")
 	public ModelAndView drug() throws ParseException {
 		ArrayList<DrugDO> drugs = (ArrayList<DrugDO>) drugRepository.findAll();
 		ModelAndView modelAndView = new ModelAndView("/drug");
 		modelAndView.addObject("drugs", drugs);
+		return modelAndView;
+	}
+
+	/**
+	 * 查询药品信息
+	 * @param search 传入查询内容
+	 * @return 无
+	 */
+	@PostMapping("/drug")
+	public @ResponseBody ModelAndView searchDrug(String search) {
+		ArrayList<DrugDO> drugs = drugRepository.findAllBySearch("%"+search+"%","%"+search+"%");
+		ModelAndView modelAndView = new ModelAndView("/drug");
+		modelAndView.addObject("drugs", drugs);
+		return modelAndView;
+	}
+
+	/**
+	 * 删除药品信息
+	 * @param mno 传入药品编号
+	 * @return 无
+	 */
+	@GetMapping("/deletedrug{mno}")
+	public ModelAndView deleteDrug(@PathVariable(name="mno") String mno){
+		drugRepository.removeByMno(mno);
+		ModelAndView modelAndView = new ModelAndView("redirect:/drug");
+		return modelAndView;
+	}
+
+	/**
+	 * 添加药品信息
+	 * @param mno 药品编号
+	 * @param mname 药品名称
+	 * @param SCCJ 药品生产厂家
+	 * @param lDprice 药品价格
+	 * @return 无
+	 */
+	@PostMapping("/adddrug")
+	public @ResponseBody ModelAndView addDrug(String mno, String mname, String SCCJ, String lDprice){
+		DrugDO drug = new DrugDO(mno,mname,(float)Integer.parseInt(lDprice),SCCJ);
+		drugRepository.save(drug);
+		ModelAndView modelAndView = new ModelAndView("redirect:/drug");
 		return modelAndView;
 	}
 }

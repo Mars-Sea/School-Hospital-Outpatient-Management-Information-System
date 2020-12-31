@@ -13,7 +13,6 @@ import java.util.List;
 public class DrugDO {
 	@Id
 	@Column(length = 25)
-
 	private String mno;
 
 	@Column(length = 50)
@@ -49,10 +48,12 @@ public class DrugDO {
 	private String memo;
 
 
-
-
-
-
+	public DrugDO(String mno, String mname, Float lDprice, String SCCJ) {
+		this.mno = mno;
+		this.mname = mname;
+		this.lDprice = lDprice;
+		this.SCCJ = SCCJ;
+	}
 
 	public DrugDO(String mno, String mname, Integer inventory, Float pDprice, Float lDprice, String SCCJ, Date JHRQ, Date SCRQ, Date SXRQ, String memo) {
 		this.mno = mno;

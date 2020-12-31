@@ -14,6 +14,24 @@
     <script type="text/javascript">
         $(function (){
 
+            $("#logout").click(function () {
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var token =$("meta[name='_csrf']").attr("content");
+                $.ajax({
+                    url:'/logout',
+                    type:"post",
+                    dataType:"text",
+                    beforeSend : function(xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success:function (result) {
+                        if (result=="success"){
+                            alert("成功退出登录");
+                            window.location.reload();
+                        }
+                    }
+                })
+            })
 
             $("#btn1").click(function (){
                 var header = $("meta[name='_csrf_header']").attr("content");
@@ -69,7 +87,7 @@
                 <li class="dropdown" style="margin-right: 10px">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 
-                        <span class="glyphicon glyphicon-user" style="color: rgb(255, 255, 255);"> 医生名</span>
+                        <span class="glyphicon glyphicon-user" style="color: rgb(255, 255, 255);" > 欢迎登录！[[${doc.dname}]]</span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#">修改个人信息</a></li>
@@ -77,7 +95,7 @@
 
                     </ul>
                 </li>
-                <li><a href="#">退出登录</a></li>
+                <li><a href="" id="logout" >退出登录</a></li>
 
             </ul>
 

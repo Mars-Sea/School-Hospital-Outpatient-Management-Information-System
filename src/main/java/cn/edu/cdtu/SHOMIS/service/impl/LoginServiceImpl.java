@@ -47,10 +47,5 @@ public class LoginServiceImpl implements LoginService {
 
 	}
 
-	@RequestMapping("/logout")
-	@ResponseBody
-	public String Logout(HttpServletRequest request){
-		request.getServletContext().removeAttribute(request.getSession().getId());
-		return "success";
-	}
+
 }

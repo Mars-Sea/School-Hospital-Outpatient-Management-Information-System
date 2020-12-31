@@ -23,78 +23,107 @@ public class DoctorController {
     protected DrugRepository drugRepository;
 
     @RequestMapping("/doctorView")
-    public ModelAndView doctorView(HttpServletRequest request){
+    public  ModelAndView doctorView(HttpServletRequest request){
         ModelAndView doctor = new ModelAndView("doctor/doctorView");
         DoctorDO doctor1 = (DoctorDO) request.getSession().getAttribute("doctor");
-        doctor.addObject("doc",doctor1);
-        return doctor;
+        if (doctor1 == null){
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/login");
+            return modelAndView;
+        }else {
+            doctor.addObject("doc",doctor1);
+            return doctor;
+        }
+
     }
 
     @RequestMapping("/registration")
-    public ModelAndView registrationView(String sno){
+    public ModelAndView registrationView(String sno,HttpServletRequest request){
         ModelAndView registration = new ModelAndView("doctor/registrationView");
-
-        List<RegisteredDO> registeredDOList = new ArrayList<>();
-        if (sno != null && !sno.equals("")){
-            int s = Integer.parseInt(sno);
-            RegisteredDO registered = registeredService.findAllByStudentSno(s);
-            if (registered==null){
-                registration.addObject("msg", "错误！该挂号信息不存在！");
-            }
+        DoctorDO doctor1 = (DoctorDO) request.getSession().getAttribute("doctor");
+        if (doctor1 == null){
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/login");
+            return modelAndView;
         }else {
-            registeredDOList = registeredService.findBystudents(2020001);
-        }
+            List<RegisteredDO> registeredDOList = new ArrayList<>();
+            if (sno != null && !sno.equals("")){
+                int s = Integer.parseInt(sno);
+                RegisteredDO registered = registeredService.findAllByStudentSno(s);
+                if (registered==null){
+                    registration.addObject("msg", "错误！该挂号信息不存在！");
+                }
+            }else {
+                registeredDOList = registeredService.findBystudents(2020001);
+            }
 
 
-        List<RegDo> regDoList = new ArrayList<>();
+            List<RegDo> regDoList = new ArrayList<>();
 //        System.out.println(byDoctor_dnoOrderByrOrderDesc.size());
-       for (int i = 0 ; i < registeredDOList.size(); i++){
-           RegisteredDO registeredDO = registeredDOList.get(i);
-           StudentDO student = registeredDO.getStudent();
-           RegDo regDo = new RegDo();
-           regDo.setSequence(registeredDO.getSequence());
-           regDo.setSname(student.getSname());
-           regDo.setSno(student.getSno());
-            regDoList.add(regDo);
-       }
-        registration.addObject("regList", regDoList);
+            for (int i = 0 ; i < registeredDOList.size(); i++){
+                RegisteredDO registeredDO = registeredDOList.get(i);
+                StudentDO student = registeredDO.getStudent();
+                RegDo regDo = new RegDo();
+                regDo.setSequence(registeredDO.getSequence());
+                regDo.setSname(student.getSname());
+                regDo.setSno(student.getSno());
+                regDoList.add(regDo);
+            }
+            registration.addObject("regList", regDoList);
+            registration.addObject("doc",doctor1);
 
-        return registration;
+            return registration;
+        }
     }
 
     @RequestMapping("/ageSee")
-    public ModelAndView ageSee(){
+    public ModelAndView ageSee(HttpServletRequest request){
         ModelAndView modelAndView = new ModelAndView("doctor/ageSeeDoctor");
-
-        return modelAndView;
+        DoctorDO doctor1 = (DoctorDO) request.getSession().getAttribute("doctor");
+        if (doctor1 == null){
+            ModelAndView modelAndView1 = new ModelAndView();
+            modelAndView.setViewName("redirect:/login");
+            return modelAndView;
+        }else {
+            modelAndView.addObject("doc",doctor1);
+            return modelAndView;
+        }
     }
 
 
     @RequestMapping("/seeDoctor")
-    public ModelAndView seeDoctor(String sno){
+    public ModelAndView seeDoctor(String sno,HttpServletRequest request){
         ModelAndView seeDoctor = new ModelAndView("doctor/seeDoctor");
-        int i = Integer.parseInt(sno);
+        DoctorDO doctor1 = (DoctorDO) request.getSession().getAttribute("doctor");
+        if (doctor1 == null){
+            ModelAndView modelAndView = new ModelAndView();
+            modelAndView.setViewName("redirect:/login");
+            return modelAndView;
+        }else {
+            int i = Integer.parseInt(sno);
 
-        RegisteredDO registeredDO = registeredService.findAllByStudentSno(i);
+            RegisteredDO registeredDO = registeredService.findAllByStudentSno(i);
 
-        StudentDO student = registeredDO.getStudent();
-
-
-        List<DrugDO> all = (ArrayList)drugRepository.findAll();
-        System.out.println(all);
-
-        seeDoctor.addObject("reg", registeredDO);
-        seeDoctor.addObject("stu", student);
-        seeDoctor.addObject("drugList",all);
+            StudentDO student = registeredDO.getStudent();
 
 
+            List<DrugDO> all = (ArrayList)drugRepository.findAll();
+            System.out.println(all);
 
-        return seeDoctor;
+            seeDoctor.addObject("doc",doctor1);
+            seeDoctor.addObject("reg", registeredDO);
+            seeDoctor.addObject("stu", student);
+            seeDoctor.addObject("drugList",all);
+
+
+
+            return seeDoctor;
+        }
     }
 
     @PostMapping("/updateDrug")
     @ResponseBody
-    public String updateDrug(String prescription, Integer sno,Float price,String symptom){
+    public String updateDrug(String prescription, Integer sno,Float price,String symptom,HttpServletRequest request){
         String msg = "success";
         System.out.println(symptom);
         Integer integer = registeredService.updateSee(prescription, price, sno, symptom);
@@ -106,7 +135,7 @@ public class DoctorController {
 
     @PostMapping("/alterreg")
     @ResponseBody
-    public String updateReg(String xh,String sno){
+    public String updateReg(String xh,String sno,HttpServletRequest request){
         String msg = "success";
         String[] xhList = xh.split(",");
         String[] snoList = sno.split(",");

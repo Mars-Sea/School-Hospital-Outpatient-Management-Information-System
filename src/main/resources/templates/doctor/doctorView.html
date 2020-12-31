@@ -18,24 +18,27 @@
     <script th:src="@{js/jquery.js}"></script>
     <script th:src="@{js/bootstrap.min.js}"></script>
     <script>
-        $("#logout").click(function () {
-            var header = $("meta[name='_csrf_header']").attr("content");
-            var token =$("meta[name='_csrf']").attr("content");
-            $.ajax({
-                url:'/logout',
-                type:"post",
-                dataType:"text",
-                beforeSend : function(xhr) {
-                    xhr.setRequestHeader(header, token);
-                },
-                success:function (result) {
-                    if (result=="success"){
-                        alert("成功退出登录");
-                        window.location.replace("/login");
+        $(function (){
+            $("#logout").click(function () {
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var token =$("meta[name='_csrf']").attr("content");
+                $.ajax({
+                    url:'/logout',
+                    type:"post",
+                    dataType:"text",
+                    beforeSend : function(xhr) {
+                        xhr.setRequestHeader(header, token);
+                    },
+                    success:function (result) {
+                        if (result=="success"){
+                            alert("成功退出登录");
+                            window.location.reload();
+                        }
                     }
-                }
+                })
             })
         })
+
     </script>
 
 </head>
@@ -50,7 +53,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" style="margin-right: 10px">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a   href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
 
                         <span class="glyphicon glyphicon-user" style="color: rgb(255, 255, 255);" > 欢迎登录！[[${doc.dname}]]</span>
 
@@ -62,7 +65,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="" id="logout" class="dropdown-toggle" data-toggle="dropdown" >退出登录</a>
+                    <a href="" id="logout" >退出登录</a>
                 </li>
 
             </ul>

@@ -2,6 +2,7 @@ package cn.edu.cdtu.SHOMIS.model.repository;
 
 import cn.edu.cdtu.SHOMIS.model.entity.DoctorDO;
 import cn.edu.cdtu.SHOMIS.model.entity.StudentDO;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -24,4 +25,8 @@ public interface DoctorRepository extends CrudRepository<DoctorDO,Integer> {
 
 	@Query(value = "SELECT * from doctors WHERE dno LIKE ?1 OR dname LIKE ?2", nativeQuery = true)
 	ArrayList<DoctorDO> findAllBySearch(String dno, String dname);
+
+	@Modifying
+	@Query("UPDATE DoctorDO set dpwd = ?1 where dno = ?2")
+	Integer updatePsw(String psw, Integer dno);
 }

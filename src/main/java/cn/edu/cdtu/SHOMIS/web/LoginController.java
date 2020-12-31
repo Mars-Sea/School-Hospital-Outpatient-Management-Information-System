@@ -68,7 +68,7 @@ public class LoginController {
 		return modelAndView;
 	}
 
-	@PostMapping("/logout")
+	@RequestMapping("/logout")
 	@ResponseBody
 	public String Logout(HttpServletRequest request){
 		request.getServletContext().removeAttribute(request.getSession().getId());

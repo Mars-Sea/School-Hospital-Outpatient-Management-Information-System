@@ -5,6 +5,7 @@ import cn.edu.cdtu.SHOMIS.model.repository.DoctorRepository;
 import cn.edu.cdtu.SHOMIS.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
@@ -24,5 +25,18 @@ public class DoctorServiceImpl implements DoctorService {
 			doctorList.add(new DoctorDO(d.getDno(),d.getDname(),d.getDage(),d.getDsex(),d.getDpwd(),d.getjMalibox()));
 		}
 		return doctorList;
+	}
+
+	@Override
+	@Transactional
+	public Integer updatePsw(String psw, Integer dno) {
+		Integer integer = doctorRepository.updatePsw(psw, dno);
+		return integer;
+	}
+
+	@Override
+	public DoctorDO findByDnoAndDpwd(Integer dno, String dpwd) {
+		DoctorDO byDnoAndDpwd = doctorRepository.findByDnoAndDpwd(dno, dpwd);
+		return byDnoAndDpwd;
 	}
 }

@@ -1,7 +1,9 @@
 package cn.edu.cdtu.SHOMIS.web;
 
 import cn.edu.cdtu.SHOMIS.model.entity.*;
+import cn.edu.cdtu.SHOMIS.model.repository.DoctorRepository;
 import cn.edu.cdtu.SHOMIS.model.repository.DrugRepository;
+import cn.edu.cdtu.SHOMIS.service.impl.DoctorServiceImpl;
 import cn.edu.cdtu.SHOMIS.service.impl.RegisteredServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,8 @@ public class DoctorController {
     @Autowired
     protected RegisteredServiceImpl registeredService;
 
+    @Autowired
+    protected DoctorServiceImpl doctorService;
     @Autowired
     protected DrugRepository drugRepository;
 
@@ -119,6 +123,27 @@ public class DoctorController {
 
             return seeDoctor;
         }
+    }
+
+    @PostMapping("/updatePsw")
+    @ResponseBody
+    public String updatePsw(String oldPsw, String newPsw, String verify,HttpServletRequest request){
+        String msg = "success";
+        DoctorDO doctor1 = (DoctorDO) request.getSession().getAttribute("doctor");
+
+        Integer dno = doctor1.getDno();
+
+        DoctorDO byDnoAndDpwd = doctorService.findByDnoAndDpwd(dno, oldPsw);
+        if (byDnoAndDpwd !=null){
+            doctorService.updatePsw(newPsw, dno);
+
+        }else {
+            msg = "密码不正确！";
+        }
+
+
+
+        return msg;
     }
 
     @PostMapping("/updateDrug")

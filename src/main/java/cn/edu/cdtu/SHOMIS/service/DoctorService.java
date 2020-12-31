@@ -13,4 +13,8 @@ public interface DoctorService {
 	 * @return 全部医生信息
 	 */
 	ArrayList<DoctorDO> findAllDoctor();
+
+	Integer updatePsw(String psw, Integer dno);
+
+	DoctorDO findByDnoAndDpwd(Integer dno, String dpwd);
 }

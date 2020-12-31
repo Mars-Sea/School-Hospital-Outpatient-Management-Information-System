@@ -12,6 +12,44 @@
     <script th:src="@{js/bootstrap.min.js}"></script>
     <script>
         $(function (){
+            $("#btn2").click(function (){
+                var header = $("meta[name='_csrf_header']").attr("content");
+                var token =$("meta[name='_csrf']").attr("content");
+
+                var oldPsw =  $("input[name=oldPsw]").val();
+                var newPsw =  $("input[name=newPsw]").val();
+                var verify =  $("input[name=verify]").val();
+                if (newPsw == verify){
+                    var formData = new FormData();
+                    formData.append("oldPsw", oldPsw);
+                    formData.append("newPsw", newPsw);
+                    formData.append("verify", verify);
+                    $.ajax({
+                        url:"/updatePsw",
+                        type:"post",
+                        dataType:"text",
+                        data:formData,
+                        async: false,
+                        contentType: false,
+                        processData: false,
+                        beforeSend : function(xhr) {
+                            xhr.setRequestHeader(header, token);
+                        },
+                        success:function (result) {
+                            if (result=="success"){
+                                alert("修改成功！");
+                                window.location.reload();
+                            }else {
+                                alert(result);
+
+                            }
+                        }
+                    })
+                }else {
+                    alert("新密码不一致");
+                }
+            })
+
             $("#logout").click(function () {
                 var header = $("meta[name='_csrf_header']").attr("content");
                 var token =$("meta[name='_csrf']").attr("content");
@@ -48,7 +86,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#">修改个人信息</a></li>
-                        <li><a href="#">修改密码</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#myModal">修改密码</a></li>
 
                     </ul>
                 </li>
@@ -99,6 +137,37 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+            </div>
+            <div class="modal-body">
+                <from>
+                    <div class="form-group">
+                        <label>原密码：</label>
+                        <input type="password" class="form-control"  name="oldPsw"     required>
+                    </div>
+                    <div class="form-group">
+                        <label>新密码：</label>
+                        <input type="password" class="form-control"  name="newPsw"     required>
+                    </div>
+                    <div class="form-group">
+                        <label>确认密码：</label>
+                        <input type="password" class="form-control"  name="verify"     required>
+                    </div>
+                </from>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" id="btn2" class="btn btn-primary">提交更改</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
 </div>
 </body>
 </html>

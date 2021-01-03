@@ -58,7 +58,7 @@ public class DoctorController {
                     registration.addObject("msg", "错误！该挂号信息不存在！");
                 }
             }else {
-                registeredDOList = registeredService.findBystudents(2020001);
+                registeredDOList = registeredService.findBystudents(doctor1.getDno());
             }
 
 
@@ -150,7 +150,7 @@ public class DoctorController {
     @ResponseBody
     public String updateDrug(String prescription, Integer sno,Float price,String symptom,HttpServletRequest request){
         String msg = "success";
-        System.out.println(symptom);
+
         Integer integer = registeredService.updateSee(prescription, price, sno, symptom);
         if (integer==0){
            msg = "修改失败！";
@@ -175,8 +175,9 @@ public class DoctorController {
         if (msg == "success"){
             for (int i = 0; i < snoList.length; i++){
 
-                int parseInt1 = Integer.parseInt(xhList[i+1]);
+                int parseInt1 = Integer.parseInt(xhList[i]);
                 int parseInt2 = Integer.parseInt(snoList[i]);
+                System.out.println(parseInt1);
                 Integer integer = registeredService.updateBysno(parseInt1, parseInt2);
                 if (integer==0) {
                     msg = parseInt2 + ",failure";

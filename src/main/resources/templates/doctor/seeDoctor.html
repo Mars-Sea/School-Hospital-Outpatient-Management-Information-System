@@ -175,10 +175,7 @@
                                 <label>顺序：</label>
                                 <input type="text" class="form-control"  name="sequence"  th:value="${reg.sequence}" readonly="readonly"  required>
                             </div>
-                            <div class="form-group">
-                                <label>顺序：</label>
-                                <input type="text" class="form-control"  name="sequence"  th:value="${reg.sequence}" readonly="readonly"  required>
-                            </div>
+
                             <div class="form-group">
                                 <label>症状：</label>
                                 <textarea rows="5" cols="30" name="symptom">
@@ -213,7 +210,7 @@
                             <div>
                                 <label>价格：</label>
 
-                                <input type="text"  name="price" id="pr" class="form-control" required>
+                                <input type="number"  name="price" id="pr" class="form-control" required>
                             </div>
 
                             <button  type="button" id="btn1"  class="btn btn-lg btn-primary btn-block">提交</button>
